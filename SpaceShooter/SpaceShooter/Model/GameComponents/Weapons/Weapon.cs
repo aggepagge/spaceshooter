@@ -25,7 +25,8 @@ namespace SpaceShooter.Model.GameComponents.Weapons.Weapon
         internal Weapon(Vector2 possition, float width, float height, int damage, float fireSpeed,
                         int numberOfBullets, bool heatSeeking, bool enemyWepon)
         {
-            this.Possition = new Vector2(possition.X - (width / 2), possition.Y);
+            //TODO: Kolla vad det är för bugg här!!!!!! (Varför width / 8)
+            this.Possition = new Vector2(possition.X - (width / 8), possition.Y);
             this.Width = width;
             this.Height = height;
             this.Damage = damage;

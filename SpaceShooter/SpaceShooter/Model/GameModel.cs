@@ -47,12 +47,12 @@ namespace SpaceShooter.Model
 
         private void setLevelOne()
         {
-            enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.0f, 0.0f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.6f, 0.0f, 0.005f));
             enemyPossitions.Add(Level.drawCurveFlat(0.0f, 0.40f, 0.99f, 0.01f, 0.005f));
-            enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.0f, 0.0f, 0.005f));
-            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.17f, 0.85f, 0.93f, 0.33f, 0.98f, -0.27f, 0.71f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.6f, 0.0f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.17f, 0.85f, 0.93f, 0.33f, 1.98f, -0.27f, 0.71f, 0.005f));
             enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.0f, 0.8f, 0.0f, 0.005f));
-            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.5f, 1.0f, 0.0f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.5f, 1.6f, 0.0f, 0.005f));
 
             int count = 0;
             for (int i = 0; i < 100; i++)
@@ -78,7 +78,7 @@ namespace SpaceShooter.Model
 
                 if (weaponType == WeaponTypes.Raygun)
                 {
-                    Weapon gunfire = new Raygun(Player.getCenterTopPossition(), 0.01f, 0.03f, 10, 1.6f, 1, false, false);
+                    Weapon gunfire = new Raygun(Player.getCenterTopPossition(), 0.03f, 0.01f, 10, 1.6f, 1, false, false);
                     Shoots.Add(gunfire);
                 }
             }

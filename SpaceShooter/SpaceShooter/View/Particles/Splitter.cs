@@ -75,7 +75,7 @@ namespace SpaceShooter.View.Particles
             if (delayTimeSeconds <= 0.0f)
             {
                 //Hämtar visuella kordinater från camera-klassen
-                Rectangle splitterRect = camera.getVisualRectangle(possition.X, possition.Y, size);
+                Rectangle splitterRect = camera.getVisualRectangle(possition.X, possition.Y, size, size);
 
                 //Variabler för uträkning av opacitet
                 float t = lifetime / MAX_LIFETIME;

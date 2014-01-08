@@ -37,8 +37,8 @@ namespace SpaceShooter
         internal static float PLAYER_SPACESHIP_HEIGHT = 0.05f;
         internal static float PLAYER_SPACESHIP_WIDTH = 0.05f;
 
-        internal static float PLAYER_SPACESHIP_SPEEDX = 0.02f;
-        internal static float PLAYER_SPACESHIP_SPEEDY = 0.03f;
+        internal static float PLAYER_SPACESHIP_SPEEDX = 0.014f;
+        internal static float PLAYER_SPACESHIP_SPEEDY = 0.01f;
 
         //Konstanter för fönster-bredd och höjd
         private int screenHeight = 800;

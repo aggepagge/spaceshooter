@@ -21,7 +21,7 @@ namespace SpaceShooter.Model
             BoardWidth = XNAController.BOARD_LOGIC_WIDTH;
             BoardHeight = XNAController.BOARD_LOGIC_HEIGHT;
             BoardTotalWidth = XNAController.BOARD_LOGIC_GAMEFIELDWIDTH;
-            StartPossition = new Vector2(BoardWidth / 2, BoardHeight * 0.9f);
+            StartPossition = new Vector2(BoardTotalWidth / 2, BoardHeight * 0.9f);
         }
 
         internal static List<Vector2> drawCurveFlat(float aX, float aY, float bX, float bY, float degrade)

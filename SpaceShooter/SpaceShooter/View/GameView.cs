@@ -84,15 +84,14 @@ namespace SpaceShooter.View
             foreach (MakeSplitter splitter in splitters)
                 splitter.UpdateSplitter(elapsedGameTime);
 
-            spaceShipDestinationRectangle = camera.getVisualRectangle(
-                                                                        player_spaceShip.getPossitionX(),
-                                                                        player_spaceShip.getPossitionY(),
-                                                                        player_spaceShip.SpaceShipHeight,
-                                                                        player_spaceShip.SpaceShipWidth
-                                                                     );
+            spaceShipDestinationRectangle = camera.getPlayerVisualRectangle(
+                                                                                player_spaceShip.getPossitionX(),
+                                                                                player_spaceShip.getPossitionY(),
+                                                                                player_spaceShip.SpaceShipHeight,
+                                                                                player_spaceShip.SpaceShipWidth
+                                                                           );
 
-            //TODO: RÄKNA UT VART BAKGRUNDEN SKA VARA BASSERAT PÅ VART RYMDSKEPPET BEFINNER SIG...
-            background_TMP_Rect = camera.getVisualBackgroundRectangle(spaceShipDestinationRectangle, player_spaceShip);
+            background_TMP_Rect = camera.getBoardVisualRectangle(XNAController.BOARD_LOGIC_GAMEFIELDWIDTH);
 
             previousKeyBoardState = currentKeyBoardState;
             currentKeyBoardState = Keyboard.GetState();

@@ -154,7 +154,7 @@ namespace SpaceShooter.View.Particles
             if (!stopExplotion)
             {
                 //Yttre rektangel med startpossition (X och Y) samt logisk storlek.
-                Rectangle frameRect = camera.getExplotionRectangle(possition.X, possition.Y, size);
+                Rectangle frameRect = camera.getVisualRectangle(possition.X, possition.Y, size, size);
 
                 int Xrow = 0;
                 int Yrow = 0;
