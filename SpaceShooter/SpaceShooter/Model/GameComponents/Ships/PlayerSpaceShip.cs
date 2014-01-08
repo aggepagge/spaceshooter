@@ -3,14 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using SpaceShooter.Model.GameComponents.Weapons.Weapon;
+using SpaceShooter.Model.GameComponents.Weapons;
 
 namespace SpaceShooter.Model.GameComponents.Ships
 {
     class PlayerSpaceShip : SpaceShip
     {
+        internal bool Firering { get; set; }
+        internal WeaponTypes CurrentWeapon { get; set; }
+        internal float FireRate { get; private set; }
+        private bool CanFire { get; set; }
+        private float timeUntillNextShoot = 0.0f;
+
+        private List<WeaponTypes> weapons = new List<WeaponTypes>(10);
+
         internal PlayerSpaceShip(float height, float width, Level level, float speedX, float speedY, int healt) 
             : base (height, width, level, speedX, speedY, healt)
-        {}
+        {
+            Firering = false;
+            CurrentWeapon = WeaponTypes.Raygun;
+            this.addWeapon(WeaponTypes.Raygun);
+            FireRate = StaticHelper.getFireRate(CurrentWeapon);
+            CanFire = false;
+        }
 
         internal Vector2 getCenterTopPossition()
         {
@@ -32,6 +48,66 @@ namespace SpaceShooter.Model.GameComponents.Ships
             return spaceShipPossition;
         }
 
+        internal void addWeapon(WeaponTypes newWepon)
+        {
+            weapons.Add(newWepon);
+        }
+
+        internal void setCurrentWeapon(WeaponTypes currentWepon)
+        {
+            CurrentWeapon = currentWepon;
+            if (!weapons.Contains(currentWepon))
+                weapons.Add(currentWepon);
+            FireRate = StaticHelper.getFireRate(CurrentWeapon);
+        }
+
+        internal void removeWeapon(int weaponIndex)
+        {
+            if (weapons.Count > weaponIndex)
+                weapons.RemoveAt(weaponIndex);
+        }
+
+        internal void removeWeapon(WeaponTypes weaponEnum)
+        {
+            weapons.Remove(weaponEnum);
+        }
+
+        internal void removeAllWeapon()
+        {
+            weapons.Clear();
+            weapons.Add(WeaponTypes.Raygun);
+        }
+
+        internal bool readyToFire()
+        {
+            bool ready = CanFire;
+            CanFire = false;
+            return ready;
+        }
+
+        internal WeaponTypes getCurrentWeapon()
+        {
+            if (weapons.Count > 0)
+            {
+                WeaponTypes tmpWeapon = CurrentWeapon;
+
+                switch (tmpWeapon)
+                {
+                    case WeaponTypes.Raygun:
+                        return WeaponTypes.Raygun;
+                    case WeaponTypes.Missile:
+                        return WeaponTypes.Missile;
+                    default:
+                        return WeaponTypes.Raygun;
+                } 
+            }
+            else
+            {
+                weapons.Add(WeaponTypes.Raygun);
+                return WeaponTypes.Raygun;
+            }
+        }
+
         internal override void Update(float elapsedTimeSeconds)
         {
             if (spaceShipPossition.X < -(SpaceShipWidth / 2))
@@ -45,6 +121,18 @@ namespace SpaceShooter.Model.GameComponents.Ships
 
             if (spaceShipPossition.Y > level.BoardHeight - (SpaceShipHeight / 2))
                 spaceShipPossition.Y = level.BoardHeight - (SpaceShipHeight / 2);
+
+            if (Firering)
+            {
+                timeUntillNextShoot += elapsedTimeSeconds;
+                if (timeUntillNextShoot > FireRate)
+                {
+                    CanFire = true;
+                    timeUntillNextShoot = 0.0f;
+                }
+            }
+            else if (timeUntillNextShoot != 0.0f)
+                timeUntillNextShoot = 0.0f;
         }
 
         internal override bool HasBeenShoot(FloatRectangle shotRect)

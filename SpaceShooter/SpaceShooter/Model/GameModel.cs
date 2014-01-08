@@ -7,6 +7,7 @@ using SpaceShooter.Model.GameComponents.Ships;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using SpaceShooter.Model.GameComponents.Weapons.Weapon;
+using SpaceShooter.Model.GameComponents.Weapons;
 
 namespace SpaceShooter.Model
 {
@@ -14,11 +15,6 @@ namespace SpaceShooter.Model
     {
         internal PlayerSpaceShip Player { get; private set; }
         internal Level Level { get; private set; }
-
-        //TODO: Ta bort det här sen...
-        //private List<Vector2> enemyTest;
-        //internal EnemySpaceShip Enemy { get; private set; }
-        //internal List<Weapon> Shoots { get; private set; }
 
         private List<List<Vector2>> enemyPossitions;
         private List<EnemySpaceShip> enemyStorage;
@@ -41,6 +37,7 @@ namespace SpaceShooter.Model
                                                 XNAController.PLAYER_START_HEALT
                                              );
 
+
             enemyPossitions = new List<List<Vector2>>(10);
             enemyStorage = new List<EnemySpaceShip>();
             EnemyShips = new List<EnemySpaceShip>();
@@ -50,12 +47,12 @@ namespace SpaceShooter.Model
 
         private void setLevelOne()
         {
-            enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.0f, 0.0f, 0.005f, 0.1f, 0.1f));
-            enemyPossitions.Add(Level.drawCurveFlat(0.0f, 0.40f, 0.99f, 0.01f, 0.005f, 0.1f, 0.1f));
-            enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.0f, 0.0f, 0.005f, 0.1f, 0.1f));
-            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.17f, 0.85f, 0.93f, 0.33f, 0.98f, -0.27f, 0.71f, 0.005f, 0.1f, 0.1f));
-            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.0f, 0.8f, 0.0f, 0.005f, 0.1f, 0.1f));
-            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.5f, 1.0f, 0.0f, 0.005f, 0.1f, 0.1f));
+            enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.0f, 0.0f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveFlat(0.0f, 0.40f, 0.99f, 0.01f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.0f, 0.0f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.17f, 0.85f, 0.93f, 0.33f, 0.98f, -0.27f, 0.71f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.0f, 0.8f, 0.0f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.5f, 1.0f, 0.0f, 0.005f));
 
             int count = 0;
             for (int i = 0; i < 100; i++)
@@ -63,7 +60,7 @@ namespace SpaceShooter.Model
                 if (count > 5)
                     count = 0;
 
-                enemyStorage.Add(new EnemySpaceShip(0.1f, 0.1f, Level, 0.02f, 1.0f, 20, enemyPossitions[count], 0.001f, 1.0f));
+                enemyStorage.Add(new EnemySpaceShip(0.05f, 0.05f, Level, 0.02f, 1.0f, 20, enemyPossitions[count], 0.001f, 1.0f));
                 count++;
             }
         }
@@ -74,6 +71,17 @@ namespace SpaceShooter.Model
 
             EnemyShips.RemoveAll(x => x.RemoveMe == true);
             Shoots.RemoveAll(x => x.RemoveMe == true);
+
+            if (Player.Firering && Player.readyToFire())
+            {
+                WeaponTypes weaponType = Player.getCurrentWeapon();
+
+                if (weaponType == WeaponTypes.Raygun)
+                {
+                    Weapon gunfire = new Raygun(Player.getCenterTopPossition(), 0.01f, 0.03f, 10, 1.6f, 1, false, false);
+                    Shoots.Add(gunfire);
+                }
+            }
 
             foreach (EnemySpaceShip enemy in EnemyShips)
             {
@@ -141,9 +149,7 @@ namespace SpaceShooter.Model
 
         internal void playerShoots()
         {
-            Vector2 playerPossition = Player.getCenterTopPossition();
-            Raygun gunfire = new Raygun(playerPossition, 0.01f, 0.02f, 10, 1.6f, 1, false, false, 0.0005f);
-            Shoots.Add(gunfire);
+            Player.Firering = !Player.Firering;
         }
     }
 }

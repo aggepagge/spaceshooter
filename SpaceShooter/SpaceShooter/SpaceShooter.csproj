@@ -116,6 +116,7 @@
     <Compile Include="Model\GameComponents\Weapons\Missile.cs" />
     <Compile Include="Model\GameComponents\Weapons\Raygun.cs" />
     <Compile Include="Model\GameComponents\Weapons\Weapon.cs" />
+    <Compile Include="Model\GameComponents\Weapons\WeaponTypes.cs" />
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\IGameModelListener.cs" />
     <Compile Include="Model\Level.cs" />

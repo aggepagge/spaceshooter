@@ -62,13 +62,13 @@ namespace SpaceShooter.View
 
         private void loadContent()
         {
-            player_spaceShipTexture = content.Load<Texture2D>("spaceship");
+            player_spaceShipTexture = content.Load<Texture2D>("spaceshiptwo");
             background_TMP_TEXTURE = content.Load<Texture2D>("background");
             enemy_Texture = content.Load<Texture2D>("shipEnemy");
-            shot_Texture = content.Load<Texture2D>("fireRed");
+            shot_Texture = content.Load<Texture2D>("fireone");
             soundExplotion = content.Load<SoundEffect>("explosion_sound");
             textureExplotion = content.Load<Texture2D>("explotion3");
-            textureSplitter = content.Load<Texture2D>("fireball");
+            textureSplitter = content.Load<Texture2D>("splitterballtree");
         }
 
         internal bool playerWantsToQuit()

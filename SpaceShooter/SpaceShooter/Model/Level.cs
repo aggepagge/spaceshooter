@@ -24,8 +24,7 @@ namespace SpaceShooter.Model
             StartPossition = new Vector2(BoardWidth / 2, BoardHeight * 0.9f);
         }
 
-        internal static List<Vector2> drawCurveFlat(float aX, float aY, float bX, float bY,
-                                        float degrade, float enemyWidth, float enemyHeight)
+        internal static List<Vector2> drawCurveFlat(float aX, float aY, float bX, float bY, float degrade)
         {
             List<Vector2> possitions = new List<Vector2>();
 
@@ -48,8 +47,7 @@ namespace SpaceShooter.Model
 
         //Uträkningen av Bezier-kurvan är inspirerad av: http://www.gamedev.net/reference/articles/article1808.asp
         //
-        internal static List<Vector2> drawCurveQuadratic(float aX, float aY, float bX, float bY, float cX, float cY,
-                                        float degrade, float enemyWidth, float enemyHeight)
+        internal static List<Vector2> drawCurveQuadratic(float aX, float aY, float bX, float bY, float cX, float cY, float degrade)
         {
             List<Vector2> possitions = new List<Vector2>();
 
@@ -72,8 +70,7 @@ namespace SpaceShooter.Model
 
         //Uträkningen av Bezier-kurvan är inspirerad av: http://www.gamedev.net/reference/articles/article1808.asp
         //
-        internal static List<Vector2> drawCurveCubic(float aX, float aY, float bX, float bY, float cX, float cY, float dX, float dY,
-                                        float degrade, float enemyWidth, float enemyHeight)
+        internal static List<Vector2> drawCurveCubic(float aX, float aY, float bX, float bY, float cX, float cY, float dX, float dY, float degrade)
         {
             List<Vector2> possitions = new List<Vector2>();
 

@@ -121,13 +121,13 @@ namespace SpaceShooter.View
             //}
 
             //FIXAR SÅ KAMERAN FÖLJER SKEPPET (MAN BLIR ÅKSJUK :S)
-            //int displaysementBySpaceship = (int)(displacementX + (ship.getPossitionX() * scaleX) - (screenWidth / 2) + (ship.SpaceShipWidth * scaleX / 2));
+            int displaysementBySpaceship = (int)(displacementX + (ship.getPossitionX() * scaleX) - (screenWidth / 2) + (ship.SpaceShipWidth * scaleX / 2));
 
-            //if (displaysementBySpaceship > 0)
-            //    displaysementBySpaceship = 0;
+            if (displaysementBySpaceship > 0)
+                displaysementBySpaceship = 0;
 
-            //if (displaysementBySpaceship < displacementX * 2)
-            //    displaysementBySpaceship = displacementX * 2;
+            if (displaysementBySpaceship < displacementX)
+                displaysementBySpaceship = displacementX;
 
             //int displaysementBySpaceship = 0;
 
@@ -148,7 +148,7 @@ namespace SpaceShooter.View
             //                    );
 
             return new Rectangle(
-                                    0,
+                                    displacementX - displaysementBySpaceship,
                                     0,
                                     (int)(logicalBoardWidth * scaleX),
                                     screenHeight
