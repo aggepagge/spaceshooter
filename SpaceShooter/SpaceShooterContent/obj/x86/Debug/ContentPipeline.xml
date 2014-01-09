@@ -92,7 +92,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\bulletship.xnb</Output>
-      <Time>2014-01-08T17:48:37.4159014+01:00</Time>
+      <Time>2014-01-09T01:58:10.6419539+01:00</Time>
     </Item>
     <Item>
       <Source>background2.png</Source>
@@ -101,43 +101,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\background2.xnb</Output>
-      <Time>2014-01-09T00:49:36.8876606+01:00</Time>
-    </Item>
-    <Item>
-      <Source>background3.jpg</Source>
-      <Name>background3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\background3.xnb</Output>
-      <Time>2014-01-09T00:49:36.9836661+01:00</Time>
-    </Item>
-    <Item>
-      <Source>background4.jpg</Source>
-      <Name>background4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\background4.xnb</Output>
-      <Time>2014-01-09T00:49:37.0126677+01:00</Time>
-    </Item>
-    <Item>
-      <Source>background5.jpg</Source>
-      <Name>background5</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\background5.xnb</Output>
-      <Time>2014-01-09T00:49:37.069671+01:00</Time>
-    </Item>
-    <Item>
-      <Source>background6.jpg</Source>
-      <Name>background6</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\background6.xnb</Output>
-      <Time>2014-01-09T00:49:37.122674+01:00</Time>
+      <Time>2014-01-09T01:58:39.4356008+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

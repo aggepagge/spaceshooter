@@ -113,7 +113,6 @@
     <Compile Include="Model\GameComponents\Levels\LevelOne.cs" />
     <Compile Include="Model\GameComponents\Ships\PlayerSpaceShip.cs" />
     <Compile Include="Model\GameComponents\Ships\SpaceShip.cs" />
-    <Compile Include="Model\GameComponents\StaticHelper.cs" />
     <Compile Include="Model\GameComponents\Weapons\Missile.cs" />
     <Compile Include="Model\GameComponents\Weapons\Raygun.cs" />
     <Compile Include="Model\GameComponents\Weapons\Weapon.cs" />
@@ -121,6 +120,7 @@
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\IGameModelListener.cs" />
     <Compile Include="Model\Level.cs" />
+    <Compile Include="Model\StaticHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Controller\XNAController.cs" />
