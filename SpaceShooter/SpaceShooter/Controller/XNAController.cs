@@ -34,8 +34,8 @@ namespace SpaceShooter
         internal static int PLAYER_START_HEALT = 100;
 
         //Statiska variabler för logisk höjd och bredd på spelarens rymdskepp
-        internal static float PLAYER_SPACESHIP_HEIGHT = 0.05f;
-        internal static float PLAYER_SPACESHIP_WIDTH = 0.05f;
+        internal static float PLAYER_SPACESHIP_HEIGHT = 0.1f;
+        internal static float PLAYER_SPACESHIP_WIDTH = 0.1f;
 
         internal static float PLAYER_SPACESHIP_SPEEDX = 0.014f;
         internal static float PLAYER_SPACESHIP_SPEEDY = 0.01f;

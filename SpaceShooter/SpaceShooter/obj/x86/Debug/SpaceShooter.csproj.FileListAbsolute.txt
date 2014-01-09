@@ -13,3 +13,9 @@ C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\In
 C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\splitterballtree.xnb
 C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\fireone.xnb
 C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\spaceshiptwo.xnb
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\bulletship.xnb
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\background2.xnb
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\background3.xnb
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\background4.xnb
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\background5.xnb
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\background6.xnb

@@ -25,12 +25,27 @@ namespace SpaceShooter.View
 
         private Texture2D player_spaceShipTexture;
         private PlayerSpaceShip player_spaceShip;
+        private Rectangle spriteDestinationRectangle;
+
+        //Variabler för vinkling av skeppet åt vänster och höger
+        private float playerPreviousX;
+        //Aktuell ruta i X-led
+        private int frameX = 5;
+        //Aktuell ruta i Y-led
+        private int frameY = 4;
+        //Antal rutor i X-led
+        private static int numFramesX = 5;
+        //Antal rutor i Y-led
+        private static int numFramesY = 8;
+        //Aktuell bildruta
+        private int imageCount = 6;
+        private static float IMAGE_COUNT_UPDATE = 0.05f;
+        private float timeCountUpdate = 0.0f;
 
         private SoundEffect soundExplotion;
         private Texture2D textureExplotion;
         private Texture2D textureSplitter;
 
-        //TODO: ÄNDRA BAKGRUND SEN...
         private Texture2D background_TMP_TEXTURE;
         private Rectangle background_TMP_Rect;
         private Rectangle spaceShipDestinationRectangle;
@@ -53,6 +68,7 @@ namespace SpaceShooter.View
             this.spriteBatch = spriteBatch;
             this.content = content;
             this.player_spaceShip = model.Player;
+            this.playerPreviousX = player_spaceShip.getPossitionX();
 
             this.enemys = m_gameModel.EnemyShips;
             this.shoots = m_gameModel.Shoots;
@@ -62,18 +78,68 @@ namespace SpaceShooter.View
 
         private void loadContent()
         {
-            player_spaceShipTexture = content.Load<Texture2D>("spaceshiptwo");
-            background_TMP_TEXTURE = content.Load<Texture2D>("background");
+            player_spaceShipTexture = content.Load<Texture2D>("bulletship");
+            background_TMP_TEXTURE = content.Load<Texture2D>("background2");
             enemy_Texture = content.Load<Texture2D>("shipEnemy");
             shot_Texture = content.Load<Texture2D>("fireone");
             soundExplotion = content.Load<SoundEffect>("explosion_sound");
             textureExplotion = content.Load<Texture2D>("explotion3");
             textureSplitter = content.Load<Texture2D>("splitterballtree");
+
+            resetSpritesheet();
         }
 
-        internal bool playerWantsToQuit()
+        private void resetSpritesheet(int firstX = 5, int firstY = 4)
         {
-            return Keyboard.GetState().IsKeyDown(Keys.Escape);
+            int spriteWidth = (int)(player_spaceShipTexture.Width / numFramesX);
+            int spriteHeight = (int)(player_spaceShipTexture.Height / numFramesY);
+
+            spriteDestinationRectangle = new Rectangle(
+                                                            (firstX - 1) * spriteWidth,
+                                                            (firstY - 1) * spriteHeight,
+                                                            spriteWidth,
+                                                            spriteHeight
+                                                      );
+        }
+
+        private void turnSpritesheet()
+        {
+            float playerDirection = player_spaceShip.getPossitionX() - playerPreviousX;
+
+            if (playerDirection < 0 && imageCount > 1)
+            {
+                imageCount--;
+                setFrame();
+            }
+            else if (playerDirection > 0 && imageCount < 11)
+            {
+                imageCount++;
+                setFrame();
+            }
+        }
+
+        //Uträkning av vilken sprite-bild i spitesheeten som ska visas.
+        //Uträkningen är lite udda, men detta beror på att det bara är vissa 
+        //sprite-rutor som används (Rad 3y, 1x till 5y, 5x)
+        private void setFrame()
+        {
+            if (imageCount > 6)
+                frameY = 5;
+            else if (imageCount < 2)
+                frameY = 3;
+            else
+                frameY = 4;
+
+            if (frameY == 4)
+                frameX = imageCount - 1;
+            else if (frameY == 5)
+                frameX = imageCount - 6;
+            else
+                frameX = 5;
+
+            //Skapar den inre rektangeln där spriten ritas ut
+            this.resetSpritesheet(frameX, frameY);
+            timeCountUpdate = 0.0f;
         }
 
         internal void UpdateView(float elapsedGameTime)
@@ -84,9 +150,42 @@ namespace SpaceShooter.View
             foreach (MakeSplitter splitter in splitters)
                 splitter.UpdateSplitter(elapsedGameTime);
 
+            timeCountUpdate += elapsedGameTime;
+
+            if (timeCountUpdate > IMAGE_COUNT_UPDATE)
+            {
+                turnSpritesheet();
+            }
+
+            if (timeCountUpdate > IMAGE_COUNT_UPDATE / 30) //Delat med 30 så uppdateringen av possitionen hinns med
+            {
+                if (playerPreviousX != player_spaceShip.getPossitionX())
+                {
+                    playerPreviousX = player_spaceShip.getPossitionX();
+                }
+                else
+                {
+                    if (imageCount != 6)
+                    {
+                        if (imageCount > 6)
+                        {
+                            imageCount--;
+                            setFrame();
+                        }
+                        else if (imageCount < 6)
+                        {
+                            imageCount++;
+                            setFrame();
+                        }
+                    }
+
+                    timeCountUpdate = 0.0f;
+                }
+            }
+
             spaceShipDestinationRectangle = camera.getPlayerVisualRectangle(
-                                                                                player_spaceShip.getPossitionX(),
-                                                                                player_spaceShip.getPossitionY(),
+                                                                                player_spaceShip.getPossitionX() + (player_spaceShip.SpaceShipWidth / 4),
+                                                                                player_spaceShip.getPossitionY() + (player_spaceShip.SpaceShipHeight / 4),
                                                                                 player_spaceShip.SpaceShipHeight,
                                                                                 player_spaceShip.SpaceShipWidth
                                                                            );
@@ -95,6 +194,11 @@ namespace SpaceShooter.View
 
             previousKeyBoardState = currentKeyBoardState;
             currentKeyBoardState = Keyboard.GetState();
+        }
+
+        internal bool playerWantsToQuit()
+        {
+            return Keyboard.GetState().IsKeyDown(Keys.Escape);
         }
 
         internal bool playerMovesUp()
@@ -142,8 +246,6 @@ namespace SpaceShooter.View
 
             spriteBatch.Draw(background_TMP_TEXTURE, background_TMP_Rect, Color.White);
 
-            spriteBatch.Draw(player_spaceShipTexture, spaceShipDestinationRectangle, Color.White);
-
             foreach (EnemySpaceShip enemy in enemys)
             {
                 Rectangle enemyRectangle = camera.getVisualRectangle(
@@ -173,6 +275,21 @@ namespace SpaceShooter.View
 
             foreach (MakeSplitter splitter in splitters)
                 splitter.DrawSplitter(spriteBatch, camera);
+
+            spriteBatch.Draw(
+                                player_spaceShipTexture,
+                                spaceShipDestinationRectangle,
+                                spriteDestinationRectangle,
+                                Color.White,
+                                0,
+                                new Vector2((player_spaceShipTexture.Width / numFramesX) / 2,
+                                            (player_spaceShipTexture.Height / numFramesY)) / 2,
+                                SpriteEffects.None,
+                                0
+                            );
+
+            //Utritning utan spritesheet
+            //spriteBatch.Draw(player_spaceShipTexture, spaceShipDestinationRectangle, Color.White);
 
             spriteBatch.End();
         }

@@ -7,3 +7,9 @@ Content\splitterballtwo.xnb
 Content\splitterballtree.xnb
 Content\fireone.xnb
 Content\spaceshiptwo.xnb
+Content\bulletship.xnb
+Content\background2.xnb
+Content\background3.xnb
+Content\background4.xnb
+Content\background5.xnb
+Content\background6.xnb
