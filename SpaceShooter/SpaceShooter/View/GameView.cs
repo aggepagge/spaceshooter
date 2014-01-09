@@ -123,17 +123,33 @@ namespace SpaceShooter.View
         //sprite-rutor som används (Rad 3y, 1x till 5y, 5x)
         private void setFrame()
         {
-            if (imageCount > 6)
+            //För visning av bilderna åt ett håll
+            //if (imageCount > 6)
+            //    frameY = 5;
+            //else if (imageCount < 2)
+            //    frameY = 3;
+            //else
+            //    frameY = 4;
+
+            //if (frameY == 4)
+            //    frameX = imageCount - 1;
+            //else if (frameY == 5)
+            //    frameX = imageCount - 6;
+            //else
+            //    frameX = 5;
+
+            //För visning av bilderna åt motsatt håll
+            if (imageCount < 6)
                 frameY = 5;
-            else if (imageCount < 2)
+            else if (imageCount > 10)
                 frameY = 3;
             else
                 frameY = 4;
 
             if (frameY == 4)
-                frameX = imageCount - 1;
+                frameX = 11 - imageCount;
             else if (frameY == 5)
-                frameX = imageCount - 6;
+                frameX = 6 - imageCount;
             else
                 frameX = 5;
 
