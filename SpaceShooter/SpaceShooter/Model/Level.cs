@@ -95,20 +95,44 @@ namespace SpaceShooter.Model
 
         internal LevelContent getLevelOne()
         {
-            //TODO: IMPLEMENT THIS SHIIIIIIIT
-            return new LevelContent();
+            List<List<Vector2>> enemyPossitions = new List<List<Vector2>>(10);
+
+            enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.6f, 0.0f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveFlat(0.0f, 0.40f, 0.99f, 0.01f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.6f, 0.0f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.17f, 0.85f, 0.93f, 0.33f, 1.98f, -0.27f, 0.71f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.0f, 0.8f, 0.0f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.5f, 1.6f, 0.0f, 0.005f));
+
+            return new LevelContent(this, 10, enemyPossitions);
         }
 
         internal LevelContent getLevelTwo()
         {
-            //TODO: IMPLEMENT THIS SHIIIIIIIT
-            return new LevelContent();
+            List<List<Vector2>> enemyPossitions = new List<List<Vector2>>(10);
+
+            enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.6f, 0.0f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveFlat(0.0f, 0.40f, 0.99f, 0.01f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.6f, 0.0f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.17f, 0.85f, 0.93f, 0.33f, 1.98f, -0.27f, 0.71f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.0f, 0.8f, 0.0f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.5f, 1.6f, 0.0f, 0.005f));
+
+            return new LevelContent(this, 10, enemyPossitions);
         }
 
         internal LevelContent getLevelTree()
         {
-            //TODO: IMPLEMENT THIS SHIIIIIIIT
-            return new LevelContent();
+            List<List<Vector2>> enemyPossitions = new List<List<Vector2>>(10);
+
+            enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.6f, 0.0f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveFlat(0.0f, 0.40f, 0.99f, 0.01f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.6f, 0.0f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.17f, 0.85f, 0.93f, 0.33f, 1.98f, -0.27f, 0.71f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.0f, 0.8f, 0.0f, 0.005f));
+            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.5f, 1.6f, 0.0f, 0.005f));
+
+            return new LevelContent(this, 10, enemyPossitions);
         }
     }
 }

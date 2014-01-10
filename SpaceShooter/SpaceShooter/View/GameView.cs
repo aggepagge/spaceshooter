@@ -24,7 +24,6 @@ namespace SpaceShooter.View
         private ContentManager content;
 
         private Texture2D player_spaceShipTexture;
-        private PlayerSpaceShip player_spaceShip;
         private Rectangle spriteDestinationRectangle;
 
         //Variabler för vinkling av skeppet åt vänster och höger
@@ -54,11 +53,18 @@ namespace SpaceShooter.View
         private KeyboardState previousKeyBoardState;
 
         private Texture2D enemy_Texture;
-        private List<EnemySpaceShip> enemys;
-        private Texture2D shot_Texture;
-        private List<Weapon> shoots;
+        private Texture2D playerShot_Texture;
+        private Texture2D enemyRayGun_Texture;
         private ArrayList explotions = new ArrayList();
         private ArrayList splitters = new ArrayList();
+
+        private Texture2D scoreBackground;
+        private Rectangle scoreRect;
+        private SpriteFont theFont;
+        private Texture2D healtCount;
+        private Rectangle healtCountRect;
+        private Rectangle healtCountRectCoverRect;
+        private Texture2D healtCountForeground;
 
         public GameView(GraphicsDevice graphDevice, GameModel model, Camera camera, SpriteBatch spriteBatch, ContentManager content)
         {
@@ -67,11 +73,7 @@ namespace SpaceShooter.View
             this.camera = camera;
             this.spriteBatch = spriteBatch;
             this.content = content;
-            this.player_spaceShip = model.Player;
-            this.playerPreviousX = player_spaceShip.getPossitionX();
-
-            this.enemys = m_gameModel.EnemyShips;
-            this.shoots = m_gameModel.Shoots;
+            this.playerPreviousX = m_gameModel.Player.getPossitionX();
 
             loadContent();
         }
@@ -79,14 +81,39 @@ namespace SpaceShooter.View
         private void loadContent()
         {
             player_spaceShipTexture = content.Load<Texture2D>("bulletship");
+            enemyRayGun_Texture = content.Load<Texture2D>("EnemyRaygunLaser");
             background_TMP_TEXTURE = content.Load<Texture2D>("background2");
-            enemy_Texture = content.Load<Texture2D>("shipEnemy");
-            shot_Texture = content.Load<Texture2D>("fireone");
+            enemy_Texture = content.Load<Texture2D>("alien5");
+            playerShot_Texture = content.Load<Texture2D>("fireone");
             soundExplotion = content.Load<SoundEffect>("explosion_sound");
             textureExplotion = content.Load<Texture2D>("explotion3");
             textureSplitter = content.Load<Texture2D>("splitterballtree");
+            scoreBackground = content.Load<Texture2D>("scoreBackground");
+            healtCountForeground = content.Load<Texture2D>("healtBackground");
+            healtCount = content.Load<Texture2D>("healt");
 
+            theFont = content.Load<SpriteFont>("Titanium Motors");
+
+            setStatictextures();
             resetSpritesheet();
+        }
+
+        internal void pauseSound()
+        {
+            foreach (MakeExplotion explotion in explotions)
+                explotion.pauseSound();
+        }
+
+        internal void resumeSound()
+        {
+            foreach (MakeExplotion explotion in explotions)
+                explotion.resumeSound();
+        }
+
+        public void restartGame()
+        {
+            this.playerPreviousX = m_gameModel.Player.getPossitionX();
+            camera.restartGame();
         }
 
         private void resetSpritesheet(int firstX = 5, int firstY = 4)
@@ -104,7 +131,7 @@ namespace SpaceShooter.View
 
         private void turnSpritesheet()
         {
-            float playerDirection = player_spaceShip.getPossitionX() - playerPreviousX;
+            float playerDirection = m_gameModel.Player.getPossitionX() - playerPreviousX;
 
             if (playerDirection < 0 && imageCount > 1)
             {
@@ -175,9 +202,9 @@ namespace SpaceShooter.View
 
             if (timeCountUpdate > IMAGE_COUNT_UPDATE / 30) //Delat med 30 så uppdateringen av possitionen hinns med
             {
-                if (playerPreviousX != player_spaceShip.getPossitionX())
+                if (playerPreviousX != m_gameModel.Player.getPossitionX())
                 {
-                    playerPreviousX = player_spaceShip.getPossitionX();
+                    playerPreviousX = m_gameModel.Player.getPossitionX();
                 }
                 else
                 {
@@ -197,19 +224,30 @@ namespace SpaceShooter.View
             }
 
             spaceShipDestinationRectangle = camera.getPlayerVisualRectangle(
-                                                                                player_spaceShip.getPossitionX() + (player_spaceShip.SpaceShipWidth / 4),
-                                                                                player_spaceShip.getPossitionY() + (player_spaceShip.SpaceShipHeight / 4),
-                                                                                player_spaceShip.SpaceShipHeight,
-                                                                                player_spaceShip.SpaceShipWidth
+                                                                                m_gameModel.Player.getPossitionX() + (m_gameModel.Player.SpaceShipWidth / 4),
+                                                                                m_gameModel.Player.getPossitionY() + (m_gameModel.Player.SpaceShipHeight / 4),
+                                                                                m_gameModel.Player.SpaceShipHeight,
+                                                                                m_gameModel.Player.SpaceShipWidth
                                                                            );
 
-            background_TMP_Rect = camera.getBoardVisualRectangle(XNAController.BOARD_LOGIC_GAMEFIELDWIDTH);
+            background_TMP_Rect = camera.getBoardVisualRectangle(m_gameModel.Level.BoardTotalWidth);
 
+            //Uträkning av hur många procent av hälsostapeln som ska räknas bort
+            int healtLost = m_gameModel.Player.PlayerStartHealt - m_gameModel.Player.Healt;
+            float heltPercent = (float)healtLost / (float)m_gameModel.Player.PlayerStartHealt;
+            int result = 200;
+
+            if (heltPercent != 0)
+                result = 200 - (int)(200 * heltPercent);
+
+            healtCountRectCoverRect = new Rectangle(580, 10, result, 30);
+
+            //Sätter nuvarande och tidigare tangentbordstillstånd
             previousKeyBoardState = currentKeyBoardState;
             currentKeyBoardState = Keyboard.GetState();
         }
 
-        internal bool playerWantsToQuit()
+        internal bool showMenu()
         {
             return Keyboard.GetState().IsKeyDown(Keys.Escape);
         }
@@ -242,11 +280,6 @@ namespace SpaceShooter.View
             return false;
         }
 
-        internal bool playerHasPaused()
-        {
-            return Keyboard.GetState().IsKeyDown(Keys.P);
-        }
-
         public void wounded(Vector2 possition)
         {
             splitters.Add(new MakeSplitter(possition, camera.GetScale(), soundExplotion.CreateInstance(), textureSplitter));
@@ -257,6 +290,12 @@ namespace SpaceShooter.View
             explotions.Add(new MakeExplotion(possition, camera.GetScale(), soundExplotion.CreateInstance(), textureExplotion));
         }
 
+        private void setStatictextures()
+        {
+            scoreRect = new Rectangle(20, 10, 200, 30);
+            healtCountRect = new Rectangle(580, 10, 200, 30);
+        }
+
         internal void Draw(float elapsedGameTime)
         {
             graphDevice.Clear(Color.Black);
@@ -264,7 +303,7 @@ namespace SpaceShooter.View
 
             spriteBatch.Draw(background_TMP_TEXTURE, background_TMP_Rect, Color.White);
 
-            foreach (EnemySpaceShip enemy in enemys)
+            foreach (EnemySpaceShip enemy in m_gameModel.EnemyShips)
             {
                 Rectangle enemyRectangle = camera.getVisualRectangle(
                                                                             enemy.getPossitionX(),
@@ -276,7 +315,7 @@ namespace SpaceShooter.View
                 spriteBatch.Draw(enemy_Texture, enemyRectangle, Color.White);
             }
 
-            foreach (Weapon shot in shoots)
+            foreach (Weapon shot in m_gameModel.Shoots)
             {
                 Rectangle shotRectangle = camera.getVisualRectangle(
                                                                         shot.Possition.X,
@@ -285,7 +324,10 @@ namespace SpaceShooter.View
                                                                         shot.Height
                                                                      );
 
-                spriteBatch.Draw(shot_Texture, shotRectangle, Color.White);
+                if(shot.WeaponType == WeaponTypes.Raygun)
+                    spriteBatch.Draw(playerShot_Texture, shotRectangle, Color.White);
+                else if(shot.WeaponType ==WeaponTypes.EnemyRaygun)
+                    spriteBatch.Draw(enemyRayGun_Texture, shotRectangle, Color.White);
             }
 
             foreach (MakeExplotion explotion in explotions)
@@ -294,20 +336,29 @@ namespace SpaceShooter.View
             foreach (MakeSplitter splitter in splitters)
                 splitter.DrawSplitter(spriteBatch, camera);
 
-            spriteBatch.Draw(
-                                player_spaceShipTexture,
-                                spaceShipDestinationRectangle,
-                                spriteDestinationRectangle,
-                                Color.White,
-                                0,
-                                new Vector2((player_spaceShipTexture.Width / numFramesX) / 2,
-                                            (player_spaceShipTexture.Height / numFramesY)) / 2,
-                                SpriteEffects.None,
-                                0
-                            );
+            if (!m_gameModel.Player.RemoveMe)
+            {
+                spriteBatch.Draw(
+                                    player_spaceShipTexture,
+                                    spaceShipDestinationRectangle,
+                                    spriteDestinationRectangle,
+                                    Color.White,
+                                    0,
+                                    new Vector2((player_spaceShipTexture.Width / numFramesX) / 2,
+                                                (player_spaceShipTexture.Height / numFramesY)) / 2,
+                                    SpriteEffects.None,
+                                    0
+                                );
+            }
 
-            //Utritning utan spritesheet
-            //spriteBatch.Draw(player_spaceShipTexture, spaceShipDestinationRectangle, Color.White);
+            spriteBatch.Draw(scoreBackground, scoreRect, Color.White);
+
+            string scoreText = "Score: " + m_gameModel.Player.PlayerScoore;
+            Vector2 possitionScoreText = new Vector2(44, 12);
+            spriteBatch.DrawString(theFont, scoreText, possitionScoreText, Color.White);
+            
+            spriteBatch.Draw(healtCountForeground, healtCountRect, Color.White);
+            spriteBatch.Draw(healtCount, healtCountRectCoverRect, Color.White);
 
             spriteBatch.End();
         }

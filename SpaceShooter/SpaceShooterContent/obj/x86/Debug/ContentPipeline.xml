@@ -11,18 +11,6 @@
       <Time>2014-01-04T14:37:08.1724425+01:00</Time>
     </Item>
     <Item>
-      <Source>shipEnemy.bmp</Source>
-      <Name>shipEnemy</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Parameters>
-        <Data Key="ColorKeyColor">255, 255, 255, 255</Data>
-      </Parameters>
-      <Options>None</Options>
-      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\shipEnemy.xnb</Output>
-      <Time>2014-01-05T14:06:56.072702+01:00</Time>
-    </Item>
-    <Item>
       <Source>explotion3.png</Source>
       <Name>explotion3</Name>
       <Importer>TextureImporter</Importer>
@@ -102,6 +90,69 @@
       <Options>None</Options>
       <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\background2.xnb</Output>
       <Time>2014-01-09T01:58:39.4356008+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Titanium Motors.spritefont</Source>
+      <Name>Titanium Motors</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\Titanium Motors.xnb</Output>
+      <Time>2014-01-10T01:25:15.161937+01:00</Time>
+    </Item>
+    <Item>
+      <Source>backgroundImage.jpg</Source>
+      <Name>backgroundImage</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\backgroundImage.xnb</Output>
+      <Time>2014-01-10T02:41:48.1606415+01:00</Time>
+    </Item>
+    <Item>
+      <Source>scoreBackground.png</Source>
+      <Name>scoreBackground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\scoreBackground.xnb</Output>
+      <Time>2014-01-10T14:54:54.9219995+01:00</Time>
+    </Item>
+    <Item>
+      <Source>healt.png</Source>
+      <Name>healt</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\healt.xnb</Output>
+      <Time>2014-01-10T15:52:19.6580271+01:00</Time>
+    </Item>
+    <Item>
+      <Source>healtBackground.png</Source>
+      <Name>healtBackground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\healtBackground.xnb</Output>
+      <Time>2014-01-10T16:28:55.6246292+01:00</Time>
+    </Item>
+    <Item>
+      <Source>alien5.png</Source>
+      <Name>alien5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\alien5.xnb</Output>
+      <Time>2014-01-10T18:35:31.1820703+01:00</Time>
+    </Item>
+    <Item>
+      <Source>EnemyRaygunLaser.png</Source>
+      <Name>EnemyRaygunLaser</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\EnemyRaygunLaser.xnb</Output>
+      <Time>2014-01-10T20:31:37.3945148+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

@@ -26,6 +26,8 @@ namespace SpaceShooter
         private Camera camera;
 
         private MenuGUI v_GUI;
+        private Rectangle backgroundRect;
+        private Texture2D background;
  
         //Statiska variabler för logisk höjd och bredd på panelen
         internal static float BOARD_LOGIC_WIDTH = 1.0f;
@@ -43,18 +45,21 @@ namespace SpaceShooter
         internal static float PLAYER_SPACESHIP_SPEEDY = 0.01f;
 
         //Konstanter för fönster-bredd och höjd
-        private int screenHeight = 800;
-        private int screenWidth = 800;
+        private const int SCREEN_HEIGHT = 800;
+        private const int SCREEN_WIDTH = 800;
 
         private bool paused = false;
         internal bool ShowingMenu { get; set; }
+        private bool showIngameMenu = false;
+        private float pullingForMenu = 0.0f;
+        private float WAIT_TIME = 0.01f;
 
         public XNAController()
         {
             graphics = new GraphicsDeviceManager(this);
             //Sätter storlek på fönstret
-            graphics.PreferredBackBufferHeight = screenHeight;
-            graphics.PreferredBackBufferWidth = screenWidth;
+            graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
+            graphics.PreferredBackBufferWidth = SCREEN_WIDTH;
             Content.RootDirectory = "Content";
             ShowingMenu = true;
         }
@@ -67,7 +72,7 @@ namespace SpaceShooter
         /// </summary>
         protected override void Initialize()
         {
-            m_gameModel = new GameModel();
+            this.IsMouseVisible = true;
             base.Initialize();
         }
 
@@ -80,9 +85,13 @@ namespace SpaceShooter
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            m_gameModel = new GameModel();
             camera = new Camera(graphics.GraphicsDevice.Viewport);
             v_gameView = new GameView(graphics.GraphicsDevice, m_gameModel, camera, spriteBatch, Content);
-            v_GUI = new MenuGUI(Content, spriteBatch);
+            v_GUI = new MenuGUI(graphics.GraphicsDevice, Content, spriteBatch);
+
+            background = Content.Load<Texture2D>("backgroundImage");
+            backgroundRect = new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         }
 
         /// <summary>
@@ -101,13 +110,29 @@ namespace SpaceShooter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (!ShowingMenu)
-            {
-                if (v_gameView.playerWantsToQuit())
-                    this.Exit();
+            if (m_gameModel.Player.RemoveMe || m_gameModel.LevelFinished)
+                showIngameMenu = true;
 
-                if (v_gameView.playerHasPaused())
-                    this.paused = !this.paused;
+            pullingForMenu += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (pullingForMenu > WAIT_TIME)
+            {
+                if (v_gameView.showMenu())
+                {
+                    ShowingMenu = !ShowingMenu;
+
+                    if (ShowingMenu)
+                        v_gameView.pauseSound();
+                    else
+                        v_gameView.resumeSound();
+                }
+
+                pullingForMenu = 0.0f;
+            }
+
+            if (!ShowingMenu && !showIngameMenu)
+            {
+                this.IsMouseVisible = false;
 
                 if (!paused)
                 {
@@ -130,6 +155,9 @@ namespace SpaceShooter
                     v_gameView.UpdateView((float)gameTime.ElapsedGameTime.TotalSeconds);
                 }
             }
+            else
+                this.IsMouseVisible = true;
+
             base.Update(gameTime);
         }
 
@@ -139,8 +167,90 @@ namespace SpaceShooter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            if (ShowingMenu)
-                v_GUI.DrawMenu((float)gameTime.ElapsedGameTime.TotalSeconds);
+            if (ShowingMenu || showIngameMenu)
+            {
+                int possitionX = 100;
+                int possitionY = 100;
+                int buttonSeparation = 60;
+
+                GraphicsDevice.Clear(Color.White);
+                spriteBatch.Begin();
+                spriteBatch.Draw(background, backgroundRect, Color.White);
+
+                if (showIngameMenu)
+                {
+                    if (m_gameModel.Player.RemoveMe)
+                    {
+                        v_GUI.DrawTitle("GAME OVER", 2.0f, possitionX, possitionY);
+                        if (v_GUI.DrawMenu(Mouse.GetState(), "Start New Game", possitionX, possitionY += buttonSeparation * 2))
+                        {
+                            m_gameModel.startNewGame(v_gameView);
+                            showIngameMenu = false;
+                        }
+
+                        if (v_GUI.DrawMenu(Mouse.GetState(), "Quit", possitionX, possitionY += buttonSeparation))
+                        {
+                            this.Exit();
+                        }
+                    }
+                    else if (m_gameModel.LevelCount < 4)
+                    {
+                        v_GUI.DrawTitle("NEXT LEVEL", 2.0f, possitionX, possitionY);
+                        v_GUI.DrawResult("Your score is " + m_gameModel.Player.PlayerScoore + " points", possitionX, possitionY += buttonSeparation * 2);
+                        if (v_GUI.DrawMenu(Mouse.GetState(), "Play Next Level", possitionX, possitionY += buttonSeparation))
+                        {
+                            m_gameModel.playNextLevel(v_gameView);
+                            showIngameMenu = false;
+                        }
+
+                        if (v_GUI.DrawMenu(Mouse.GetState(), "Quit", possitionX, possitionY += buttonSeparation))
+                        {
+                            this.Exit();
+                        }
+                    }
+                    else if (m_gameModel.LevelCount > 3)
+                    {
+                        v_GUI.DrawTitle("YOU MADE IT!", 2.0f, possitionX, possitionY);
+                        v_GUI.DrawResult("Your score is " + m_gameModel.Player.PlayerScoore + " points", possitionX, possitionY += buttonSeparation * 2);
+
+                        if (v_GUI.DrawMenu(Mouse.GetState(), "Play Again", possitionX, possitionY += buttonSeparation))
+                        {
+                            m_gameModel.startNewGame(v_gameView);
+                            showIngameMenu = false;
+                        }
+
+                        if (v_GUI.DrawMenu(Mouse.GetState(), "Quit", possitionX, possitionY += buttonSeparation))
+                        {
+                            this.Exit();
+                        }
+                    }
+                }
+                else
+                {
+                    if (v_GUI.DrawMenu(Mouse.GetState(), "Start New Game", possitionX, possitionY))
+                    {
+                        m_gameModel.startNewGame(v_gameView);
+                        ShowingMenu = false;
+                    }
+
+                    if (m_gameModel.GameTime > 0)
+                    {
+                        if (v_GUI.DrawMenu(Mouse.GetState(), "Continue", possitionX, possitionY += buttonSeparation))
+                        {
+                            ShowingMenu = false;
+                        }
+                    }
+
+                    if (v_GUI.DrawMenu(Mouse.GetState(), "Quit", possitionX, possitionY += buttonSeparation))
+                    {
+                        this.Exit();
+                    }
+                }
+
+                spriteBatch.End();
+
+                v_GUI.setOldState(Mouse.GetState());
+            }
             else
                 v_gameView.Draw((float)gameTime.ElapsedGameTime.TotalSeconds);
 

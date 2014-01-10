@@ -8,9 +8,9 @@ namespace SpaceShooter.Model.GameComponents.Weapons.Weapon
 {
     class Raygun : Weapon
     {
-        internal Raygun(Vector2 possition, float width, float height, int damage, 
+        internal Raygun(Vector2 possition, WeaponTypes weaponType, float width, float height, int damage, 
                         float fireSpeed, int numberOfBullets, bool heatSeeking, bool enemyWeapon)
-            : base(possition, width, height, damage, fireSpeed, numberOfBullets, heatSeeking, enemyWeapon)
+            : base(possition, weaponType, width, height, damage, fireSpeed, numberOfBullets, heatSeeking, enemyWeapon)
         {
             
         }

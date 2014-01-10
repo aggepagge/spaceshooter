@@ -15,6 +15,8 @@ namespace SpaceShooter.Model.GameComponents.Ships
         internal float FireRate { get; private set; }
         private bool CanFire { get; set; }
         private float timeUntillNextShoot = 0.0f;
+        internal int PlayerScoore { get; set; }
+        internal int PlayerStartHealt { get; private set; }
 
         private List<WeaponTypes> weapons = new List<WeaponTypes>(10);
 
@@ -26,6 +28,8 @@ namespace SpaceShooter.Model.GameComponents.Ships
             this.addWeapon(WeaponTypes.Raygun);
             FireRate = StaticHelper.getFireRate(CurrentWeapon);
             CanFire = false;
+            PlayerScoore = 0;
+            this.PlayerStartHealt = healt;
         }
 
         internal Vector2 getCenterTopPossition()
@@ -147,6 +151,16 @@ namespace SpaceShooter.Model.GameComponents.Ships
                 return true;
 
             return false;
+        }
+
+        internal void setDead()
+        {
+            Firering = false;
+            CanFire = false;
+            base.SpaceShipHeight = 0.0f;
+            base.SpaceShipWidth = 0.0f;
+            spaceShipPossition.X = -1;
+            spaceShipPossition.Y = -1;
         }
     }
 }

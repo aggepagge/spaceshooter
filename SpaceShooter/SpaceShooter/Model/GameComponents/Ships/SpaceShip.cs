@@ -10,7 +10,7 @@ namespace SpaceShooter.Model.GameComponents.Ships
     {
         protected Vector2 spaceShipPossition;
         protected Level level;
-        internal float SpaceShipHeight { get; private set; }
+        internal float SpaceShipHeight { get; set; }
         internal float SpaceShipWidth { get; set; }
         internal Vector2 SpaceShipSpeed { get; set; }
         internal int Healt { get; set; }

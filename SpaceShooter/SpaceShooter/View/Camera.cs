@@ -150,5 +150,11 @@ namespace SpaceShooter.View
         {
             return scaleX;
         }
+
+        internal void restartGame()
+        {
+            displacementX = displacementXStartPossition / 2 * -1;
+            playerPrevPoss = new Vector2(-1, -1);
+        }
     }
 }

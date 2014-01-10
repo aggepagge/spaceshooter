@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using SpaceShooter.Model.GameComponents.Weapons.Weapon;
 using SpaceShooter.Model.GameComponents.Weapons;
+using SpaceShooter.Model.GameComponents.Levels;
 
 namespace SpaceShooter.Model
 {
@@ -15,17 +16,17 @@ namespace SpaceShooter.Model
     {
         internal PlayerSpaceShip Player { get; private set; }
         internal Level Level { get; private set; }
+        private LevelContent levelContent;
 
-        private List<List<Vector2>> enemyPossitions;
-        private List<EnemySpaceShip> enemyStorage;
         internal List<EnemySpaceShip> EnemyShips { get; private set; }
         internal List<Weapon> Shoots { get; private set; }
 
         private float createNewShipCount = 0.0f;
         private static float RESTART_COUNT = 1.0f;
         private int countNewEnemy = 0;
-
-        internal int PlayerScoore { get; set; }
+        internal float GameTime { get; private set; }
+        internal bool LevelFinished { get; private set; }
+        internal int LevelCount { get; private set; }
 
         internal GameModel()
         {
@@ -40,36 +41,66 @@ namespace SpaceShooter.Model
                                              );
 
 
-            enemyPossitions = new List<List<Vector2>>(10);
-            enemyStorage = new List<EnemySpaceShip>();
+            levelContent = Level.getLevelOne();
             EnemyShips = new List<EnemySpaceShip>();
             Shoots = new List<Weapon>();
-            PlayerScoore = 0;
-            setLevelOne();
+            GameTime = 0.0f;
+            LevelFinished = false;
+            LevelCount = 1;
         }
 
-        private void setLevelOne()
+        internal void startNewGame(IGameModelListener listener)
         {
-            enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.6f, 0.0f, 0.005f));
-            enemyPossitions.Add(Level.drawCurveFlat(0.0f, 0.40f, 0.99f, 0.01f, 0.005f));
-            enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.6f, 0.0f, 0.005f));
-            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.17f, 0.85f, 0.93f, 0.33f, 1.98f, -0.27f, 0.71f, 0.005f));
-            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.0f, 0.8f, 0.0f, 0.005f));
-            enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.5f, 1.6f, 0.0f, 0.005f));
+            this.Level = new Level();
+            this.Player = new PlayerSpaceShip(
+                                                XNAController.PLAYER_SPACESHIP_HEIGHT,
+                                                XNAController.PLAYER_SPACESHIP_WIDTH,
+                                                Level,
+                                                XNAController.PLAYER_SPACESHIP_SPEEDX,
+                                                XNAController.PLAYER_SPACESHIP_SPEEDY,
+                                                XNAController.PLAYER_START_HEALT
+                                             );
 
-            int count = 0;
-            for (int i = 0; i < 100; i++)
-            {
-                if (count > 5)
-                    count = 0;
+            EnemyShips.Clear();
+            Shoots.Clear();
+            levelContent = Level.getLevelOne();
+            Player.setPossitionX(Level.StartPossition.X);
+            Player.setPossitionY(Level.StartPossition.Y);
 
-                enemyStorage.Add(new EnemySpaceShip(0.05f, 0.05f, Level, 0.02f, 1.0f, 20, enemyPossitions[count], 0.001f, 1.0f));
-                count++;
-            }
+            listener.restartGame();
+            GameTime = 0.0f;
+            countNewEnemy = 0;
+            LevelFinished = false;
+            LevelCount = 1;
+        }
+
+        internal void playNextLevel(IGameModelListener listener)
+        {
+            LevelCount++;
+            EnemyShips.Clear();
+            Shoots.Clear();
+
+            if(LevelCount == 2)
+                levelContent = Level.getLevelTwo();
+            else if (LevelCount == 3)
+                levelContent = Level.getLevelTree();
+
+            Player.setPossitionX(Level.StartPossition.X);
+            Player.setPossitionY(Level.StartPossition.Y);
+
+            listener.restartGame();
+            GameTime = 0.0f;
+            countNewEnemy = 0;
+            LevelFinished = false;
         }
 
         internal void UpdateModel(float elapsedGameTime, IGameModelListener listener)
         {
+            GameTime += elapsedGameTime;
+
+            if (Player.RemoveMe)
+                Player.setDead();
+
             Player.Update(elapsedGameTime);
 
             EnemyShips.RemoveAll(x => x.RemoveMe == true);
@@ -79,39 +110,90 @@ namespace SpaceShooter.Model
             {
                 WeaponTypes weaponType = Player.getCurrentWeapon();
 
-                if (weaponType == WeaponTypes.Raygun)
-                {
-                    Weapon gunfire = new Raygun(Player.getCenterTopPossition(), 0.03f, 0.01f, 10, 1.6f, 1, false, false);
-                    Shoots.Add(gunfire);
-                }
+                Weapon gunfire = new Weapon(
+                                                Player.getCenterTopPossition(), 
+                                                weaponType, 
+                                                StaticHelper.getBulletWidth(weaponType),
+                                                StaticHelper.getBulletHeight(weaponType),
+                                                10, 
+                                                StaticHelper.getFireSpeed(weaponType), 
+                                                1, 
+                                                false, 
+                                                false
+                                            );
+                Shoots.Add(gunfire);
             }
 
             foreach (EnemySpaceShip enemy in EnemyShips)
             {
                 enemy.Update(elapsedGameTime);
+
+                if (enemy.ReadyToFire)
+                {
+                    WeaponTypes weaponType = enemy.WeaponType;
+
+                    Weapon gunfire = new Weapon(
+                                                    enemy.getCenterBottomPossition(), 
+                                                    weaponType,
+                                                    StaticHelper.getBulletWidth(weaponType),
+                                                    StaticHelper.getBulletHeight(weaponType),
+                                                    10, 
+                                                    StaticHelper.getFireSpeed(weaponType),
+                                                    1, 
+                                                    false, 
+                                                    true
+                                                );
+                    Shoots.Add(gunfire);
+
+                    enemy.ReadyToFire = false;
+                }
             }
 
             foreach (Weapon shot in Shoots)
             {
                 shot.Update(elapsedGameTime);
 
-                FloatRectangle shotRect = FloatRectangle.createFromLeftTop(shot.Possition, shot.Width, shot.Height);
-
-                foreach (EnemySpaceShip enemy in EnemyShips)
+                if (!shot.EnemyWepon)
                 {
-                    if (enemy.HasBeenShoot(shotRect))
+                    FloatRectangle shotRect = FloatRectangle.createFromLeftTop(shot.Possition, shot.Width, shot.Height);
+
+                    foreach (EnemySpaceShip enemy in EnemyShips)
                     {
-                        enemy.Healt -= shot.Damage;
+                        if (enemy.HasBeenShoot(shotRect))
+                        {
+                            enemy.Healt -= shot.Damage;
+                            Player.PlayerScoore += shot.Damage;
+                            shot.RemoveMe = true;
+                            shot.Damage = 0;
+
+                            if (enemy.Healt < 1)
+                            {
+                                enemy.RemoveMe = true;
+                                Player.PlayerScoore += enemy.DeathPoint;
+                                listener.killed(shot.Possition);
+                            }
+                            else
+                                listener.wounded(shot.Possition);
+                        }
+                    }
+                }
+                else if (shot.EnemyWepon)
+                {
+                    FloatRectangle shotRect = FloatRectangle.createFromLeftTop(shot.Possition, shot.Width, shot.Height);
+
+                    if (Player.HasBeenShoot(shotRect))
+                    {
+                        Player.Healt -= shot.Damage;
                         shot.RemoveMe = true;
                         shot.Damage = 0;
 
-                        if (enemy.Healt < 1)
+                        if (Player.Healt < 1)
                         {
-                            enemy.RemoveMe = true;
-                            listener.killed(enemy.getShipPossition());
+                            Player.RemoveMe = true;
+                            listener.killed(shot.Possition);
                         }
                         else
-                            listener.wounded(enemy.getShipPossition());
+                            listener.wounded(shot.Possition);
                     }
                 }
             }
@@ -120,14 +202,18 @@ namespace SpaceShooter.Model
             
             if(createNewShipCount > RESTART_COUNT)
             {
-                if (countNewEnemy < enemyStorage.Count)
+                if (countNewEnemy < levelContent.EnemyStorage.Count)
                 {
-                    EnemyShips.Add(enemyStorage[countNewEnemy]);
+                    EnemyShips.Add(levelContent.EnemyStorage[countNewEnemy]);
 
                     createNewShipCount = 0.0f;
                     countNewEnemy++;
                 }
             }
+
+            if (countNewEnemy >= levelContent.EnemyStorage.Count)
+                if(EnemyShips.Count == 0)
+                    LevelFinished = true;
         }
 
         internal void playerMovesUp()

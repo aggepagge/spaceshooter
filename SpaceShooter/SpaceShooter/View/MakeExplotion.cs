@@ -31,6 +31,16 @@ namespace SpaceShooter.View
             explotionSoundInstance.Play();
         }
 
+        internal void pauseSound()
+        {
+            explotionSoundInstance.Pause();
+        }
+
+        internal void resumeSound()
+        {
+            explotionSoundInstance.Resume();
+        }
+
         internal void UpdateExplotion(float elapsedGameTime)
         {
             explotion.Update(elapsedGameTime);

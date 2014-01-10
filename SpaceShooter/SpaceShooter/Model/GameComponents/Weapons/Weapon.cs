@@ -6,7 +6,14 @@ using Microsoft.Xna.Framework;
 
 namespace SpaceShooter.Model.GameComponents.Weapons.Weapon
 {
-    abstract class Weapon
+    public enum WeaponTypes
+    {
+        Raygun,
+        Missile,
+        EnemyRaygun
+    }
+
+    class Weapon
     {
         internal Vector2 Possition { get; private set; }
         internal float Height { get; private set; }
@@ -17,12 +24,11 @@ namespace SpaceShooter.Model.GameComponents.Weapons.Weapon
         internal bool HeatSeeking { get; private set; }
         internal bool EnemyWepon { get; private set; }
         internal bool RemoveMe { get; set; }
+        internal WeaponTypes WeaponType { get; private set; }
 
         private float time = 0.0f;
 
-        //private bool timeTo
-
-        internal Weapon(Vector2 possition, float width, float height, int damage, float fireSpeed,
+        internal Weapon(Vector2 possition, WeaponTypes weaponType, float width, float height, int damage, float fireSpeed,
                         int numberOfBullets, bool heatSeeking, bool enemyWepon)
         {
             //TODO: Kolla vad det är för bugg här!!!!!! (Varför width / 8)
@@ -35,6 +41,7 @@ namespace SpaceShooter.Model.GameComponents.Weapons.Weapon
             this.HeatSeeking = heatSeeking;
             this.EnemyWepon = enemyWepon;
 
+            WeaponType = weaponType;
             RemoveMe = false;
         }
 

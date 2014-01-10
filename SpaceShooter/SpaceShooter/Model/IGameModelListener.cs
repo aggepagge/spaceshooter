@@ -10,5 +10,7 @@ namespace SpaceShooter.Model
         void wounded(Microsoft.Xna.Framework.Vector2 possition);
 
         void killed(Microsoft.Xna.Framework.Vector2 possition);
+
+        void restartGame();
     }
 }

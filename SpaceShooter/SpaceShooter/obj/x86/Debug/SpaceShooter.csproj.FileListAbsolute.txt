@@ -4,7 +4,6 @@ C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\In
 C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\obj\x86\Debug\SpaceShooter.exe
 C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\obj\x86\Debug\SpaceShooter.pdb
 C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\background.xnb
-C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\shipEnemy.xnb
 C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\explotion3.xnb
 C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\fireball.xnb
 C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\explosion_sound.xnb
@@ -15,3 +14,10 @@ C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\In
 C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\spaceshiptwo.xnb
 C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\bulletship.xnb
 C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\background2.xnb
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\Titanium Motors.xnb
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\backgroundImage.xnb
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\scoreBackground.xnb
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\healt.xnb
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\healtBackground.xnb
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\alien5.xnb
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\EnemyRaygunLaser.xnb
