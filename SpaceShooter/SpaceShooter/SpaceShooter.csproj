@@ -110,7 +110,7 @@
     <Compile Include="Model\GameComponents\Ships\EnemySpaceShip.cs" />
     <Compile Include="Model\GameComponents\FloatRectangle.cs" />
     <Compile Include="Model\GameComponents\GameObsticle.cs" />
-    <Compile Include="Model\GameComponents\Levels\LevelOne.cs" />
+    <Compile Include="Model\GameComponents\Levels\LevelContent.cs" />
     <Compile Include="Model\GameComponents\Ships\PlayerSpaceShip.cs" />
     <Compile Include="Model\GameComponents\Ships\SpaceShip.cs" />
     <Compile Include="Model\GameComponents\Weapons\Missile.cs" />
@@ -128,6 +128,7 @@
     <Compile Include="View\GameView.cs" />
     <Compile Include="View\MakeExplotion.cs" />
     <Compile Include="View\MakeSplitter.cs" />
+    <Compile Include="View\MenuGUI.cs" />
     <Compile Include="View\Particles\Explotion.cs" />
     <Compile Include="View\Particles\ExplotionSystem.cs" />
     <Compile Include="View\Particles\Splitter.cs" />

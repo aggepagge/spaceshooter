@@ -7,12 +7,12 @@ using SpaceShooter.Model.GameComponents.Ships;
 
 namespace SpaceShooter.Model.GameComponents.Levels
 {
-    class LevelOne
+    class LevelContent
     {
         List<EnemySpaceShip> enemies;
         List<List<Vector2>> curves;
 
-        internal LevelOne()
+        internal LevelContent()
         {
 
         }

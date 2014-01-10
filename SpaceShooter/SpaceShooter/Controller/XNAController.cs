@@ -24,6 +24,8 @@ namespace SpaceShooter
         private GameModel m_gameModel;
         private GameView v_gameView;
         private Camera camera;
+
+        private MenuGUI v_GUI;
  
         //Statiska variabler för logisk höjd och bredd på panelen
         internal static float BOARD_LOGIC_WIDTH = 1.0f;
@@ -44,6 +46,9 @@ namespace SpaceShooter
         private int screenHeight = 800;
         private int screenWidth = 800;
 
+        private bool paused = false;
+        internal bool ShowingMenu { get; set; }
+
         public XNAController()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -51,6 +56,7 @@ namespace SpaceShooter
             graphics.PreferredBackBufferHeight = screenHeight;
             graphics.PreferredBackBufferWidth = screenWidth;
             Content.RootDirectory = "Content";
+            ShowingMenu = true;
         }
 
         /// <summary>
@@ -62,7 +68,6 @@ namespace SpaceShooter
         protected override void Initialize()
         {
             m_gameModel = new GameModel();
-
             base.Initialize();
         }
 
@@ -77,6 +82,7 @@ namespace SpaceShooter
 
             camera = new Camera(graphics.GraphicsDevice.Viewport);
             v_gameView = new GameView(graphics.GraphicsDevice, m_gameModel, camera, spriteBatch, Content);
+            v_GUI = new MenuGUI(Content, spriteBatch);
         }
 
         /// <summary>
@@ -95,27 +101,35 @@ namespace SpaceShooter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (v_gameView.playerWantsToQuit())
-                this.Exit();
+            if (!ShowingMenu)
+            {
+                if (v_gameView.playerWantsToQuit())
+                    this.Exit();
 
-            if (v_gameView.playerMovesUp())
-                m_gameModel.playerMovesUp();
+                if (v_gameView.playerHasPaused())
+                    this.paused = !this.paused;
 
-            if (v_gameView.playerMovesDown())
-                m_gameModel.playerMovesDown();
-            
-            if (v_gameView.playerMovesLeft())
-                m_gameModel.playerMovesLeft();
+                if (!paused)
+                {
+                    if (v_gameView.playerMovesUp())
+                        m_gameModel.playerMovesUp();
 
-            if (v_gameView.playerMovesRight())
-                m_gameModel.playerMovesRight();
+                    if (v_gameView.playerMovesDown())
+                        m_gameModel.playerMovesDown();
 
-            if (v_gameView.playerShoots())
-                m_gameModel.playerShoots();
+                    if (v_gameView.playerMovesLeft())
+                        m_gameModel.playerMovesLeft();
 
-            m_gameModel.UpdateModel((float)gameTime.ElapsedGameTime.TotalSeconds, v_gameView);
-            v_gameView.UpdateView((float)gameTime.ElapsedGameTime.TotalSeconds);
+                    if (v_gameView.playerMovesRight())
+                        m_gameModel.playerMovesRight();
 
+                    if (v_gameView.playerShoots())
+                        m_gameModel.playerShoots();
+
+                    m_gameModel.UpdateModel((float)gameTime.ElapsedGameTime.TotalSeconds, v_gameView);
+                    v_gameView.UpdateView((float)gameTime.ElapsedGameTime.TotalSeconds);
+                }
+            }
             base.Update(gameTime);
         }
 
@@ -125,7 +139,10 @@ namespace SpaceShooter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            v_gameView.Draw((float)gameTime.ElapsedGameTime.TotalSeconds);
+            if (ShowingMenu)
+                v_GUI.DrawMenu((float)gameTime.ElapsedGameTime.TotalSeconds);
+            else
+                v_gameView.Draw((float)gameTime.ElapsedGameTime.TotalSeconds);
 
             base.Draw(gameTime);
         }

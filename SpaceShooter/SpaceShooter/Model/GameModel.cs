@@ -25,6 +25,8 @@ namespace SpaceShooter.Model
         private static float RESTART_COUNT = 1.0f;
         private int countNewEnemy = 0;
 
+        internal int PlayerScoore { get; set; }
+
         internal GameModel()
         {
             Level = new Level();
@@ -42,6 +44,7 @@ namespace SpaceShooter.Model
             enemyStorage = new List<EnemySpaceShip>();
             EnemyShips = new List<EnemySpaceShip>();
             Shoots = new List<Weapon>();
+            PlayerScoore = 0;
             setLevelOne();
         }
 

@@ -181,18 +181,15 @@ namespace SpaceShooter.View
                 }
                 else
                 {
-                    if (imageCount != 6)
+                    if (imageCount > 6)
                     {
-                        if (imageCount > 6)
-                        {
-                            imageCount--;
-                            setFrame();
-                        }
-                        else if (imageCount < 6)
-                        {
-                            imageCount++;
-                            setFrame();
-                        }
+                        imageCount--;
+                        setFrame();
+                    }
+                    else if (imageCount < 6)
+                    {
+                        imageCount++;
+                        setFrame();
                     }
 
                     timeCountUpdate = 0.0f;
@@ -243,6 +240,11 @@ namespace SpaceShooter.View
                 return true;
 
             return false;
+        }
+
+        internal bool playerHasPaused()
+        {
+            return Keyboard.GetState().IsKeyDown(Keys.P);
         }
 
         public void wounded(Vector2 possition)

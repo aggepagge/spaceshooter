@@ -93,10 +93,22 @@ namespace SpaceShooter.Model
             return possitions;
         }
 
-        internal LevelOne getLevelOne()
+        internal LevelContent getLevelOne()
         {
             //TODO: IMPLEMENT THIS SHIIIIIIIT
-            return new LevelOne();
+            return new LevelContent();
+        }
+
+        internal LevelContent getLevelTwo()
+        {
+            //TODO: IMPLEMENT THIS SHIIIIIIIT
+            return new LevelContent();
+        }
+
+        internal LevelContent getLevelTree()
+        {
+            //TODO: IMPLEMENT THIS SHIIIIIIIT
+            return new LevelContent();
         }
     }
 }
