@@ -130,7 +130,6 @@
     <Compile Include="View\MenuGUI.cs" />
     <Compile Include="View\Particles\Explotion.cs" />
     <Compile Include="View\Particles\ExplotionSystem.cs" />
-    <Compile Include="View\Particles\GameMenu.cs" />
     <Compile Include="View\Particles\Splitter.cs" />
     <Compile Include="View\Particles\SplitterSystem.cs" />
   </ItemGroup>

@@ -29,11 +29,11 @@ namespace SpaceShooter.View
             sprite.DrawString(theFont, title, position, Color.White, 0, Vector2.Zero, size, SpriteEffects.None, 0.5f);
         }
 
-        internal void DrawResult(string text, int leftPossX, int topPossY)
+        internal void DrawResult(string text, int leftPossX, int topPossY, int extraHeight = 0)
         {
             int margin = 10; 
             int buttonWidth = 400;
-            int buttonHeight = 40;
+            int buttonHeight = 40 + extraHeight;
 
             Rectangle destinationRectangle = new Rectangle(leftPossX - margin, topPossY - margin, buttonWidth, buttonHeight);
 

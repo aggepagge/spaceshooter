@@ -43,8 +43,8 @@ namespace SpaceShooter.View.Particles
         private bool stopExplotion = false;
         private Vector2 gravity;
         private float sizeIncrease;
-        private static float minSize = 0.24f;
-        private static float maxSize = 0.4f;
+        private static float minSize = 0.14f;
+        private static float maxSize = 0.2f;
 
         internal bool DeleateMe { get; private set; }
 
@@ -52,8 +52,7 @@ namespace SpaceShooter.View.Particles
         {
             Random rand = new Random(seed);
 
-            //Initsiering av fart-vektorn med random-fart. Detta för att ge en mer ojämn fördelning
-            speed = new Vector2((float)(rand.NextDouble() - 0.50), (float)(rand.NextDouble() * 2 - 1));
+            speed = new Vector2(0.4f, 0.4f);
             speed.Normalize();
             speed.Y = -0.6f;
 
@@ -76,7 +75,7 @@ namespace SpaceShooter.View.Particles
             wait_time = imageTime;
 
             //gravitationen i X och Y-led
-            gravity = new Vector2(0.0f, 2.8f);
+            gravity = new Vector2(0.0f, -0.1f);
 
             //Initsierar första rutan
             updateSprite();
@@ -110,14 +109,14 @@ namespace SpaceShooter.View.Particles
                         size += sizeIncrease;
                     }
 
-                    possition.Y += speed.Y * elapsedGameTime;
-                    possition.X += (speed.X / 3) * elapsedGameTime;
+                    possition.Y += speed.Y * gravity.Y * elapsedGameTime;
+                    //possition.X += (speed.X / 3) * elapsedGameTime;
 
-                    if (possition.Y < startY)
-                    {
-                        possition.X -= (speed.X / 2) * elapsedGameTime;
-                        possition.Y -= (float)((speed.Y / 1.04f) * elapsedGameTime);
-                    }
+                    //if (possition.Y < startY)
+                    //{
+                    //    possition.X -= (speed.X / 2) * elapsedGameTime;
+                    //    possition.Y -= (float)((speed.Y / 1.04f) * elapsedGameTime);
+                    //}
 
                     //Uppdaterar bildrutan
                     updateSprite();

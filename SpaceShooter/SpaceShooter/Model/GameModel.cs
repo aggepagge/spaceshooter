@@ -28,7 +28,7 @@ namespace SpaceShooter.Model
         internal bool LevelFinished { get; private set; }
         internal int LevelCount { get; set; }
 
-        private const float TIME_TO_NEXT_LEVEL = 3.0f;
+        private const float TIME_TO_NEXT_LEVEL = 1.0f;
         private float nextLevelTimer = 0.0f;
 
         internal GameModel()
@@ -110,9 +110,6 @@ namespace SpaceShooter.Model
         internal void UpdateModel(float elapsedGameTime, IGameModelListener listener)
         {
             GameTime += elapsedGameTime;
-
-            if (Player.RemoveMe)
-                Player.setDead();
 
             Player.Update(elapsedGameTime);
 
@@ -235,6 +232,17 @@ namespace SpaceShooter.Model
                         LevelFinished = true;
                         nextLevelTimer = 0.0f;
                     }
+                }
+            }
+
+            if (Player.RemoveMe)
+            {
+                nextLevelTimer += elapsedGameTime;
+
+                if (nextLevelTimer > TIME_TO_NEXT_LEVEL)
+                {
+                    LevelFinished = true;
+                    nextLevelTimer = 0.0f;
                 }
             }
         }

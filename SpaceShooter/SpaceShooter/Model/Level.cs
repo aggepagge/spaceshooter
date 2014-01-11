@@ -9,7 +9,7 @@ namespace SpaceShooter.Model
 {
     class Level
     {
-        //Prop för startpossition (För explotion)
+        //Prop för startpossition
         public Vector2 StartPossition { get; private set; }
         public float BoardWidth { get; private set; }
         public float BoardHeight { get; private set; }
@@ -104,7 +104,7 @@ namespace SpaceShooter.Model
             enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.0f, 0.8f, 0.0f, 0.005f));
             enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.5f, 1.6f, 0.0f, 0.005f));
 
-            return new LevelContent(this, 1, enemyPossitions);
+            return new LevelContent(this, 10, enemyPossitions);
         }
 
         internal LevelContent getLevelTwo()
@@ -118,7 +118,7 @@ namespace SpaceShooter.Model
             enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.0f, 0.8f, 0.0f, 0.005f));
             enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.5f, 1.6f, 0.0f, 0.005f));
 
-            return new LevelContent(this, 1, enemyPossitions);
+            return new LevelContent(this, 10, enemyPossitions);
         }
 
         internal LevelContent getLevelTree()
@@ -132,7 +132,7 @@ namespace SpaceShooter.Model
             enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.0f, 0.8f, 0.0f, 0.005f));
             enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.5f, 1.6f, 0.0f, 0.005f));
 
-            return new LevelContent(this, 1, enemyPossitions);
+            return new LevelContent(this, 10, enemyPossitions);
         }
     }
 }

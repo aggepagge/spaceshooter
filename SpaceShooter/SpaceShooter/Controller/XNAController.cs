@@ -52,7 +52,7 @@ namespace SpaceShooter
         internal bool ShowingMenu { get; set; }
         private bool showIngameMenu = false;
         private float pullingForMenu = 0.0f;
-        private float WAIT_TIME = 0.01f;
+        private float WAIT_TIME = 2.0f;
 
         public XNAController()
         {
@@ -110,22 +110,22 @@ namespace SpaceShooter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (m_gameModel.Player.RemoveMe || m_gameModel.LevelFinished)
-                showIngameMenu = true;
+            if (v_gameView.showMenu())
+            {
+                ShowingMenu = !ShowingMenu;
+
+                if (ShowingMenu)
+                    v_gameView.pauseSound();
+                else
+                    v_gameView.resumeSound();
+            }
 
             pullingForMenu += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (pullingForMenu > WAIT_TIME)
             {
-                if (v_gameView.showMenu())
-                {
-                    ShowingMenu = !ShowingMenu;
-
-                    if (ShowingMenu)
-                        v_gameView.pauseSound();
-                    else
-                        v_gameView.resumeSound();
-                }
+                if (m_gameModel.Player.RemoveMe || m_gameModel.LevelFinished)
+                    showIngameMenu = true;
 
                 pullingForMenu = 0.0f;
             }
@@ -237,6 +237,15 @@ namespace SpaceShooter
                 if (v_GUI.DrawMenu(Mouse.GetState(), "Quit", possitionX, possitionY += buttonSeparation))
                 {
                     this.Exit();
+                }
+
+                if (m_gameModel.GameTime == 0)
+                {
+                    v_GUI.DrawResult(
+                                    "Use arrow keys to stear and \nspace to shoot (Once to start \nfirering, again to stop. \n\nEsc for main menu",
+                                    possitionX,
+                                    possitionY += buttonSeparation,
+                                    100);
                 }
             }
         }

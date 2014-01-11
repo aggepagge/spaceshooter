@@ -102,12 +102,18 @@ namespace SpaceShooter.View
         {
             foreach (MakeExplotion explotion in explotions)
                 explotion.pauseSound();
+
+            foreach (MakeSplitter splitter in splitters)
+                splitter.pauseSound();
         }
 
         internal void resumeSound()
         {
             foreach (MakeExplotion explotion in explotions)
                 explotion.resumeSound();
+
+            foreach (MakeSplitter splitter in splitters)
+                splitter.resumeSound();
         }
 
         public void restartGame()
