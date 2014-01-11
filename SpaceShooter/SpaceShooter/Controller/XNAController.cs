@@ -188,7 +188,9 @@ namespace SpaceShooter
                     v_GUI.DrawTitle("NEXT LEVEL", 2.0f, possitionX, possitionY);
                     v_GUI.DrawResult("Your score is " + m_gameModel.Player.PlayerScoore + " points", possitionX, possitionY += buttonSeparation * 2);
 
-                    if (v_GUI.DrawMenu(Mouse.GetState(), "Play Next Level", possitionX, possitionY += buttonSeparation))
+                    int addLevel = m_gameModel.LevelCount + 1;
+
+                    if (v_GUI.DrawMenu(Mouse.GetState(), "Play Level " + addLevel, possitionX, possitionY += buttonSeparation))
                     {
                         m_gameModel.playNextLevel(v_gameView);
                         showIngameMenu = false;

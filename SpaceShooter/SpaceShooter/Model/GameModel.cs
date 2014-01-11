@@ -28,6 +28,9 @@ namespace SpaceShooter.Model
         internal bool LevelFinished { get; private set; }
         internal int LevelCount { get; set; }
 
+        private const float TIME_TO_NEXT_LEVEL = 3.0f;
+        private float nextLevelTimer = 0.0f;
+
         internal GameModel()
         {
             Level = new Level();
@@ -222,8 +225,18 @@ namespace SpaceShooter.Model
             }
 
             if (countNewEnemy >= levelContent.EnemyStorage.Count)
-                if(EnemyShips.Count == 0)
-                    LevelFinished = true;
+            {
+                if (EnemyShips.Count == 0)
+                {
+                    nextLevelTimer += elapsedGameTime;
+
+                    if (nextLevelTimer > TIME_TO_NEXT_LEVEL)
+                    {
+                        LevelFinished = true;
+                        nextLevelTimer = 0.0f;
+                    }
+                }
+            }
         }
 
         internal void playerMovesUp()
