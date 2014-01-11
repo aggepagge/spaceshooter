@@ -161,6 +161,84 @@ namespace SpaceShooter
             base.Update(gameTime);
         }
 
+        private void DrawMenu()
+        {
+            int possitionX = 100;
+            int possitionY = 100;
+            int buttonSeparation = 60;
+
+            if (showIngameMenu)
+            {
+                if (m_gameModel.Player.RemoveMe)
+                {
+                    v_GUI.DrawTitle("GAME OVER", 2.0f, possitionX, possitionY);
+                    if (v_GUI.DrawMenu(Mouse.GetState(), "Start New Game", possitionX, possitionY += buttonSeparation * 2))
+                    {
+                        m_gameModel.startNewGame(v_gameView);
+                        showIngameMenu = false;
+                    }
+
+                    if (v_GUI.DrawMenu(Mouse.GetState(), "Quit", possitionX, possitionY += buttonSeparation))
+                    {
+                        this.Exit();
+                    }
+                }
+                else if (!m_gameModel.gameIsFinished())
+                {
+                    v_GUI.DrawTitle("NEXT LEVEL", 2.0f, possitionX, possitionY);
+                    v_GUI.DrawResult("Your score is " + m_gameModel.Player.PlayerScoore + " points", possitionX, possitionY += buttonSeparation * 2);
+
+                    if (v_GUI.DrawMenu(Mouse.GetState(), "Play Next Level", possitionX, possitionY += buttonSeparation))
+                    {
+                        m_gameModel.playNextLevel(v_gameView);
+                        showIngameMenu = false;
+                    }
+
+                    if (v_GUI.DrawMenu(Mouse.GetState(), "Quit", possitionX, possitionY += buttonSeparation))
+                    {
+                        this.Exit();
+                    }
+                }
+                else if (m_gameModel.gameIsFinished())
+                {
+                    v_GUI.DrawTitle("YOU MADE IT!", 2.0f, possitionX, possitionY);
+                    v_GUI.DrawResult("Your score is " + m_gameModel.Player.PlayerScoore + " points", possitionX, possitionY += buttonSeparation * 2);
+
+                    if (v_GUI.DrawMenu(Mouse.GetState(), "Play Again", possitionX, possitionY += buttonSeparation))
+                    {
+                        m_gameModel.startNewGame(v_gameView);
+                        showIngameMenu = false;
+                    }
+
+                    if (v_GUI.DrawMenu(Mouse.GetState(), "Quit", possitionX, possitionY += buttonSeparation))
+                    {
+                        this.Exit();
+                    }
+                }
+            }
+            else
+            {
+                if (v_GUI.DrawMenu(Mouse.GetState(), "Start New Game", possitionX, possitionY))
+                {
+                    m_gameModel.startNewGame(v_gameView);
+                    ShowingMenu = false;
+                }
+
+                if (m_gameModel.GameTime > 0)
+                {
+                    if (v_GUI.DrawMenu(Mouse.GetState(), "Continue", possitionX, possitionY += buttonSeparation))
+                    {
+                        ShowingMenu = false;
+                    }
+                }
+
+                if (v_GUI.DrawMenu(Mouse.GetState(), "Quit", possitionX, possitionY += buttonSeparation))
+                {
+                    this.Exit();
+                }
+            }
+        }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -169,83 +247,11 @@ namespace SpaceShooter
         {
             if (ShowingMenu || showIngameMenu)
             {
-                int possitionX = 100;
-                int possitionY = 100;
-                int buttonSeparation = 60;
-
                 GraphicsDevice.Clear(Color.White);
                 spriteBatch.Begin();
                 spriteBatch.Draw(background, backgroundRect, Color.White);
 
-                if (showIngameMenu)
-                {
-                    if (m_gameModel.Player.RemoveMe)
-                    {
-                        v_GUI.DrawTitle("GAME OVER", 2.0f, possitionX, possitionY);
-                        if (v_GUI.DrawMenu(Mouse.GetState(), "Start New Game", possitionX, possitionY += buttonSeparation * 2))
-                        {
-                            m_gameModel.startNewGame(v_gameView);
-                            showIngameMenu = false;
-                        }
-
-                        if (v_GUI.DrawMenu(Mouse.GetState(), "Quit", possitionX, possitionY += buttonSeparation))
-                        {
-                            this.Exit();
-                        }
-                    }
-                    else if (m_gameModel.LevelCount < 4)
-                    {
-                        v_GUI.DrawTitle("NEXT LEVEL", 2.0f, possitionX, possitionY);
-                        v_GUI.DrawResult("Your score is " + m_gameModel.Player.PlayerScoore + " points", possitionX, possitionY += buttonSeparation * 2);
-                        if (v_GUI.DrawMenu(Mouse.GetState(), "Play Next Level", possitionX, possitionY += buttonSeparation))
-                        {
-                            m_gameModel.playNextLevel(v_gameView);
-                            showIngameMenu = false;
-                        }
-
-                        if (v_GUI.DrawMenu(Mouse.GetState(), "Quit", possitionX, possitionY += buttonSeparation))
-                        {
-                            this.Exit();
-                        }
-                    }
-                    else if (m_gameModel.LevelCount > 3)
-                    {
-                        v_GUI.DrawTitle("YOU MADE IT!", 2.0f, possitionX, possitionY);
-                        v_GUI.DrawResult("Your score is " + m_gameModel.Player.PlayerScoore + " points", possitionX, possitionY += buttonSeparation * 2);
-
-                        if (v_GUI.DrawMenu(Mouse.GetState(), "Play Again", possitionX, possitionY += buttonSeparation))
-                        {
-                            m_gameModel.startNewGame(v_gameView);
-                            showIngameMenu = false;
-                        }
-
-                        if (v_GUI.DrawMenu(Mouse.GetState(), "Quit", possitionX, possitionY += buttonSeparation))
-                        {
-                            this.Exit();
-                        }
-                    }
-                }
-                else
-                {
-                    if (v_GUI.DrawMenu(Mouse.GetState(), "Start New Game", possitionX, possitionY))
-                    {
-                        m_gameModel.startNewGame(v_gameView);
-                        ShowingMenu = false;
-                    }
-
-                    if (m_gameModel.GameTime > 0)
-                    {
-                        if (v_GUI.DrawMenu(Mouse.GetState(), "Continue", possitionX, possitionY += buttonSeparation))
-                        {
-                            ShowingMenu = false;
-                        }
-                    }
-
-                    if (v_GUI.DrawMenu(Mouse.GetState(), "Quit", possitionX, possitionY += buttonSeparation))
-                    {
-                        this.Exit();
-                    }
-                }
+                this.DrawMenu();
 
                 spriteBatch.End();
 

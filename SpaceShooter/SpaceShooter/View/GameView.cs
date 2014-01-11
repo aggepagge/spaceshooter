@@ -113,6 +113,8 @@ namespace SpaceShooter.View
         public void restartGame()
         {
             this.playerPreviousX = m_gameModel.Player.getPossitionX();
+            explotions.Clear();
+            splitters.Clear();
             camera.restartGame();
         }
 

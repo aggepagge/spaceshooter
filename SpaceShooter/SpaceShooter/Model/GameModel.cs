@@ -26,17 +26,17 @@ namespace SpaceShooter.Model
         private int countNewEnemy = 0;
         internal float GameTime { get; private set; }
         internal bool LevelFinished { get; private set; }
-        internal int LevelCount { get; private set; }
+        internal int LevelCount { get; set; }
 
         internal GameModel()
         {
             Level = new Level();
             this.Player = new PlayerSpaceShip(
-                                                XNAController.PLAYER_SPACESHIP_HEIGHT, 
-                                                XNAController.PLAYER_SPACESHIP_WIDTH, 
+                                                XNAController.PLAYER_SPACESHIP_HEIGHT,
+                                                XNAController.PLAYER_SPACESHIP_WIDTH,
                                                 Level,
-                                                XNAController.PLAYER_SPACESHIP_SPEEDX, 
-                                                XNAController.PLAYER_SPACESHIP_SPEEDY, 
+                                                XNAController.PLAYER_SPACESHIP_SPEEDX,
+                                                XNAController.PLAYER_SPACESHIP_SPEEDY,
                                                 XNAController.PLAYER_START_HEALT
                                              );
 
@@ -76,22 +76,32 @@ namespace SpaceShooter.Model
 
         internal void playNextLevel(IGameModelListener listener)
         {
-            LevelCount++;
             EnemyShips.Clear();
             Shoots.Clear();
 
-            if(LevelCount == 2)
-                levelContent = Level.getLevelTwo();
-            else if (LevelCount == 3)
-                levelContent = Level.getLevelTree();
+            Player.setPossition(Level.StartPossition.X, Level.StartPossition.Y);
+            Player.Firering = false;
+            Player.setFullHealt();
 
-            Player.setPossitionX(Level.StartPossition.X);
-            Player.setPossitionY(Level.StartPossition.Y);
-
-            listener.restartGame();
             GameTime = 0.0f;
             countNewEnemy = 0;
             LevelFinished = false;
+
+            listener.restartGame();
+
+            LevelCount++;
+            if (LevelCount == 2)
+                levelContent = Level.getLevelTwo();
+            else if (LevelCount == 3)
+                levelContent = Level.getLevelTree();
+        }
+
+        internal bool gameIsFinished()
+        {
+            if (LevelCount + 1 == 4)
+                return true;
+
+            return false;
         }
 
         internal void UpdateModel(float elapsedGameTime, IGameModelListener listener)

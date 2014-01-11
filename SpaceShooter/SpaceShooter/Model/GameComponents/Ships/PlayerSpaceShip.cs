@@ -37,6 +37,12 @@ namespace SpaceShooter.Model.GameComponents.Ships
             return new Vector2(spaceShipPossition.X + (SpaceShipWidth / 2), spaceShipPossition.Y);
         }
 
+        internal void setPossition(float possX, float possY)
+        {
+            spaceShipPossition.X = possX;
+            spaceShipPossition.Y = possY;
+        }
+
         internal void setPossitionY(float moveDirection = 1)
         {
             spaceShipPossition.Y += SpaceShipSpeed.Y * moveDirection;
@@ -161,6 +167,11 @@ namespace SpaceShooter.Model.GameComponents.Ships
             base.SpaceShipWidth = 0.0f;
             spaceShipPossition.X = -1;
             spaceShipPossition.Y = -1;
+        }
+
+        internal void setFullHealt()
+        {
+            base.Healt = PlayerStartHealt;
         }
     }
 }
