@@ -110,8 +110,8 @@ namespace SpaceShooter.Model
             List<KeyValuePair<EnemyTypes, int>> enemyType = new List<KeyValuePair<EnemyTypes, int>>();
 
             enemyType.Add(new KeyValuePair<EnemyTypes, int>(EnemyTypes.Easy, 10));
-            enemyType.Add(new KeyValuePair<EnemyTypes, int>(EnemyTypes.Middle, 4));
-            enemyType.Add(new KeyValuePair<EnemyTypes, int>(EnemyTypes.Hard, 2));
+            enemyType.Add(new KeyValuePair<EnemyTypes, int>(EnemyTypes.Middle, 10));
+            enemyType.Add(new KeyValuePair<EnemyTypes, int>(EnemyTypes.Hard, 6));
 
             Random rand = new Random(enemyType.Count);
             enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.6f, 0.0f, 0.005f, rand.Next(0, 2)));
@@ -121,7 +121,7 @@ namespace SpaceShooter.Model
             enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.0f, 0.8f, 0.0f, 0.005f, rand.Next(0, 2)));
             enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.5f, 1.6f, 0.0f, 0.005f, rand.Next(0, 2)));
 
-            return new LevelContent(this, 0, 2, 1, enemyPossitions, enemyType);
+            return new LevelContent(this, 0, 4, 2, enemyPossitions, enemyType);
         }
 
         internal LevelContent getLevelTwo()
@@ -129,9 +129,9 @@ namespace SpaceShooter.Model
             List<List<Vector2>> enemyPossitions = new List<List<Vector2>>(10);
             List<KeyValuePair<EnemyTypes, int>> enemyType = new List<KeyValuePair<EnemyTypes, int>>();
 
-            enemyType.Add(new KeyValuePair<EnemyTypes, int>(EnemyTypes.Easy, 10));
-            enemyType.Add(new KeyValuePair<EnemyTypes, int>(EnemyTypes.Middle, 6));
-            enemyType.Add(new KeyValuePair<EnemyTypes, int>(EnemyTypes.Hard, 4));
+            enemyType.Add(new KeyValuePair<EnemyTypes, int>(EnemyTypes.Easy, 20));
+            enemyType.Add(new KeyValuePair<EnemyTypes, int>(EnemyTypes.Middle, 12));
+            enemyType.Add(new KeyValuePair<EnemyTypes, int>(EnemyTypes.Hard, 8));
 
             Random rand = new Random(enemyType.Count);
             enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.6f, 0.0f, 0.005f, rand.Next(0, 2)));
@@ -141,7 +141,7 @@ namespace SpaceShooter.Model
             enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.0f, 0.8f, 0.0f, 0.005f, rand.Next(0, 2)));
             enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.5f, 1.6f, 0.0f, 0.005f, rand.Next(0, 2)));
 
-            return new LevelContent(this, 8, 2, 2, enemyPossitions, enemyType);
+            return new LevelContent(this, 14, 8, 4, enemyPossitions, enemyType);
         }
 
         internal LevelContent getLevelTree()
@@ -149,9 +149,9 @@ namespace SpaceShooter.Model
             List<List<Vector2>> enemyPossitions = new List<List<Vector2>>(10);
             List<KeyValuePair<EnemyTypes, int>> enemyType = new List<KeyValuePair<EnemyTypes, int>>();
 
-            enemyType.Add(new KeyValuePair<EnemyTypes, int>(EnemyTypes.Easy, 10));
-            enemyType.Add(new KeyValuePair<EnemyTypes, int>(EnemyTypes.Middle, 8));
-            enemyType.Add(new KeyValuePair<EnemyTypes, int>(EnemyTypes.Hard, 4));
+            enemyType.Add(new KeyValuePair<EnemyTypes, int>(EnemyTypes.Easy, 30));
+            enemyType.Add(new KeyValuePair<EnemyTypes, int>(EnemyTypes.Middle, 16));
+            enemyType.Add(new KeyValuePair<EnemyTypes, int>(EnemyTypes.Hard, 10));
 
             Random rand = new Random(enemyType.Count);
             enemyPossitions.Add(Level.drawCurveQuadratic(0.0f, 0.0f, 0.5f, 0.5f, 1.6f, 0.0f, 0.005f, rand.Next(0, 2)));
@@ -161,7 +161,7 @@ namespace SpaceShooter.Model
             enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.0f, 0.8f, 0.0f, 0.005f, rand.Next(0, 2)));
             enemyPossitions.Add(Level.drawCurveCubic(0.0f, 0.0f, 0.5f, 0.3f, 0.4f, 0.5f, 1.6f, 0.0f, 0.005f, rand.Next(0, 2)));
 
-            return new LevelContent(this, 12, 3, 2, enemyPossitions, enemyType, true);
+            return new LevelContent(this, 20, 10, 4, enemyPossitions, enemyType, true);
         }
     }
 }
