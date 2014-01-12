@@ -107,14 +107,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\GameComponents\Parts\PowerUp.cs" />
+    <Compile Include="Model\GameComponents\Ships\EnemyBossSpaceShip.cs" />
     <Compile Include="Model\GameComponents\Ships\EnemySpaceShip.cs" />
     <Compile Include="Model\GameComponents\FloatRectangle.cs" />
-    <Compile Include="Model\GameComponents\GameObsticle.cs" />
+    <Compile Include="Model\GameComponents\Parts\GameObsticle.cs" />
     <Compile Include="Model\GameComponents\Levels\LevelContent.cs" />
     <Compile Include="Model\GameComponents\Ships\PlayerSpaceShip.cs" />
     <Compile Include="Model\GameComponents\Ships\SpaceShip.cs" />
-    <Compile Include="Model\GameComponents\Weapons\Missile.cs" />
-    <Compile Include="Model\GameComponents\Weapons\Raygun.cs" />
     <Compile Include="Model\GameComponents\Weapons\Weapon.cs" />
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\IGameModelListener.cs" />
@@ -128,6 +128,8 @@
     <Compile Include="View\MakeExplotion.cs" />
     <Compile Include="View\MakeSplitter.cs" />
     <Compile Include="View\MenuGUI.cs" />
+    <Compile Include="View\Particles\BackgroundSmoke.cs" />
+    <Compile Include="View\Particles\BackgroundSmokeSystem.cs" />
     <Compile Include="View\Particles\Explotion.cs" />
     <Compile Include="View\Particles\ExplotionSystem.cs" />
     <Compile Include="View\Particles\Splitter.cs" />

@@ -17,8 +17,8 @@ namespace SpaceShooter.View.Particles
         private static float MAX_LIFETIME = 1.6f;
         private static float minSpeed = 0.6f;
         private static float maxSpeed = 3.0f;
-        private static float minSize = 0.03f;
-        private static float maxSize = 0.06f;
+        private static float minSize = 0.02f;
+        private static float maxSize = 0.03f;
 
         private float size;
         private float delayTimeSeconds;

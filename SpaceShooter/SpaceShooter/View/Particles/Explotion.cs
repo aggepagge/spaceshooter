@@ -83,6 +83,41 @@ namespace SpaceShooter.View.Particles
             DeleateMe = false;
         }
 
+        internal Explotion(int seed, Vector2 startPossition, float scale, float gravityX, float gravityY)
+        {
+            Random rand = new Random(seed);
+
+            speed = new Vector2(0.4f, 0.4f);
+            speed.Normalize();
+            speed.Y = -0.6f;
+
+            //Initsierar possitionen
+            possition = new Vector2(startPossition.X + ((float)((rand.NextDouble() * 2 - 1) * (scale * 0.0001))), startPossition.Y);
+
+            //Storleken sätts mellan minsta storlek och största storlek med random
+            size = minSize + ((float)(rand.NextDouble()) * (minSize - maxSize));
+
+            if (seed % 2 == 0)
+                rotationValue *= -1;
+
+            startY = possition.Y - (float)(size * 2.0);
+
+            //Initsiering med hjälp av uträkning som ökar storleken på rök-partickeln
+            sizeIncrease = (size * 30 * ((float)(rand.NextDouble()) * (float)(scale * 0.002))) / ((float)scale);
+
+            //Räknar ut tiden för varje bildruta genom att dela den totala tiden med antalet bildrutor
+            imageTime = MAX_TIME / numberOfFrames;
+            wait_time = imageTime;
+
+            //gravitationen i X och Y-led
+            gravity = new Vector2(gravityX * 100, gravityY * -200);
+
+            //Initsierar första rutan
+            updateSprite();
+
+            DeleateMe = false;
+        }
+
         //Uppdaterar explotionen
         internal void Update(float elapsedGameTime)
         {
@@ -110,15 +145,9 @@ namespace SpaceShooter.View.Particles
                     }
 
                     possition.Y += speed.Y * gravity.Y * elapsedGameTime;
-                    //possition.X += (speed.X / 3) * elapsedGameTime;
+                    possition.X += speed.X * gravity.X * elapsedGameTime;
 
-                    //if (possition.Y < startY)
-                    //{
-                    //    possition.X -= (speed.X / 2) * elapsedGameTime;
-                    //    possition.Y -= (float)((speed.Y / 1.04f) * elapsedGameTime);
-                    //}
-
-                    //Uppdaterar bildrutan
+                    //Uppdaterar spritesheet'en
                     updateSprite();
                 }
             }

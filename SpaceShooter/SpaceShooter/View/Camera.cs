@@ -136,7 +136,7 @@ namespace SpaceShooter.View
         //kordinater som tas som argument
         internal Vector2 getVisualCoordinates(float modelX, float modelY)
         {
-            return new Vector2(widthMargin + (modelX * scaleX), heightMargin + (modelY * scaleY));
+            return new Vector2(widthMargin + (modelX * scaleX) + displacementX, heightMargin + (modelY * scaleY));
         }
 
         //Returnerar skalan i int

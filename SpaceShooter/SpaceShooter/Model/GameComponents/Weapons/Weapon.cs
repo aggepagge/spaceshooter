@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace SpaceShooter.Model.GameComponents.Weapons.Weapon
 {
@@ -10,34 +11,39 @@ namespace SpaceShooter.Model.GameComponents.Weapons.Weapon
     {
         Raygun,
         Missile,
-        EnemyRaygun
+        Plasma,
+        EnemyRaygun,
+        EnemyPlasma,
+        EnemyLaser,
+        EnemyBossPlasma
     }
 
     class Weapon
     {
-        internal Vector2 Possition { get; private set; }
+        internal float PossitionX { get; set; }
+        internal float PossitionY { get; set; }
         internal float Height { get; private set; }
         internal float Width { get; private set; }
         internal int Damage { get; set; }
-        internal float FireSpeed { get; private set; }
-        internal int NumberOfBullets { get; private set; }
+        internal Vector2 FireSpeed { get; private set; }
         internal bool HeatSeeking { get; private set; }
         internal bool EnemyWepon { get; private set; }
         internal bool RemoveMe { get; set; }
         internal WeaponTypes WeaponType { get; private set; }
 
+        private SoundEffectInstance sound;
+
         private float time = 0.0f;
 
-        internal Weapon(Vector2 possition, WeaponTypes weaponType, float width, float height, int damage, float fireSpeed,
-                        int numberOfBullets, bool heatSeeking, bool enemyWepon)
+        internal Weapon(Vector2 possition, WeaponTypes weaponType, float width, float height, int damage, Vector2 fireSpeed,
+                        bool heatSeeking, bool enemyWepon)
         {
-            //TODO: Kolla vad det är för bugg här!!!!!! (Varför width / 8)
-            this.Possition = new Vector2(possition.X - (width / 8), possition.Y);
+            this.PossitionX = possition.X - (width / 8);
+            this.PossitionY = possition.Y;
             this.Width = width;
             this.Height = height;
             this.Damage = damage;
             this.FireSpeed = fireSpeed;
-            this.NumberOfBullets = numberOfBullets;
             this.HeatSeeking = heatSeeking;
             this.EnemyWepon = enemyWepon;
 
@@ -45,19 +51,29 @@ namespace SpaceShooter.Model.GameComponents.Weapons.Weapon
             RemoveMe = false;
         }
 
-        internal void setNewPossition(float x, float y)
+        internal void setSound(SoundEffectInstance soundEffect)
         {
-            Possition = new Vector2(x, y);
-
-            if ((Possition.Y + Height < 0 && !EnemyWepon) || (Possition.Y + Height > XNAController.BOARD_LOGIC_HEIGHT && EnemyWepon))
-                RemoveMe = true;
+            sound = soundEffect;
+            sound.Volume = 0.2f;
+            sound.Play();
         }
 
-        internal void setNewPossition(Vector2 newPossition)
+        internal void pauseSound()
         {
-            Possition = newPossition;
+            sound.Pause();
+        }
 
-            if ((Possition.Y + Height < 0 && !EnemyWepon) || (Possition.Y + Height > XNAController.BOARD_LOGIC_HEIGHT && EnemyWepon))
+        internal void resumeSound()
+        {
+            sound.Resume();
+        }
+
+        internal void setNewPossition(float xPoss, float yPoss)
+        {
+            PossitionX = xPoss; 
+            PossitionY = yPoss;
+
+            if ((PossitionY + Height < 0 && !EnemyWepon) || (PossitionY + Height > XNAController.BOARD_LOGIC_HEIGHT && EnemyWepon))
                 RemoveMe = true;
         }
 
@@ -65,12 +81,19 @@ namespace SpaceShooter.Model.GameComponents.Weapons.Weapon
         {
             time += elapsedTimeSeconds;
 
-            float possY = (float)(elapsedTimeSeconds * FireSpeed);
+            float possX = (float)(elapsedTimeSeconds * FireSpeed.X);
+            float possY = (float)(elapsedTimeSeconds * FireSpeed.Y);
 
             if (EnemyWepon)
-                setNewPossition(Possition.X, Possition.Y + possY);
+            {
+                PossitionX += possX;
+                PossitionY += possY;
+            }
             else
-                setNewPossition(Possition.X, Possition.Y - possY);
+            {
+                PossitionX += possX;
+                PossitionY -= possY;
+            }
         }
     }
 }

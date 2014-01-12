@@ -25,9 +25,18 @@ namespace SpaceShooter.View
             setSound();
         }
 
+        internal MakeExplotion(KeyValuePair<Vector2, Vector2> currentAndPreviousPossition, float scale, SoundEffectInstance soundInstance, Texture2D explotion)
+        {
+            this.explotion = new ExplotionSystem(currentAndPreviousPossition, scale);
+            this.explotionSoundInstance = soundInstance;
+            this.textureExplotion = explotion;
+
+            setSound();
+        }
+
         private void setSound()
         {
-            explotionSoundInstance.Volume = 0.1f;
+            explotionSoundInstance.Volume = 0.2f;
             explotionSoundInstance.Play();
         }
 

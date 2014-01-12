@@ -27,7 +27,7 @@ namespace SpaceShooter.View
 
         private void setSound()
         {
-            explotionSoundInstance.Volume = 0.5f;
+            explotionSoundInstance.Volume = 0.2f;
             explotionSoundInstance.Play();
         }
 

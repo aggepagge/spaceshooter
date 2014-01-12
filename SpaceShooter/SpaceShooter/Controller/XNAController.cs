@@ -115,7 +115,10 @@ namespace SpaceShooter
                 ShowingMenu = !ShowingMenu;
 
                 if (ShowingMenu)
+                {
                     v_gameView.pauseSound();
+                    v_gameView.stopFireSound();
+                }
                 else
                     v_gameView.resumeSound();
             }
@@ -125,7 +128,10 @@ namespace SpaceShooter
             if (pullingForMenu > WAIT_TIME)
             {
                 if (m_gameModel.Player.RemoveMe || m_gameModel.LevelFinished)
+                {
                     showIngameMenu = true;
+                    v_gameView.stopFireSound();
+                }
 
                 pullingForMenu = 0.0f;
             }
@@ -242,7 +248,7 @@ namespace SpaceShooter
                 if (m_gameModel.GameTime == 0)
                 {
                     v_GUI.DrawResult(
-                                    "Use arrow keys to stear and \nspace to shoot (Once to start \nfirering, again to stop. \n\nEsc for main menu",
+                                    "Use arrow keys to stear and \nspace to shoot (Once to start \nfirering, again to stop) \n\nEsc for main menu",
                                     possitionX,
                                     possitionY += buttonSeparation,
                                     100);

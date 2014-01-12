@@ -29,15 +29,6 @@
       <Time>2014-01-06T13:45:24.7315818+01:00</Time>
     </Item>
     <Item>
-      <Source>explosion_sound.wav</Source>
-      <Name>explosion_sound</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\explosion_sound.xnb</Output>
-      <Time>2014-01-06T13:45:24.7085805+01:00</Time>
-    </Item>
-    <Item>
       <Source>splitterballtwo.png</Source>
       <Name>splitterballtwo</Name>
       <Importer>TextureImporter</Importer>
@@ -92,15 +83,6 @@
       <Time>2014-01-09T01:58:39.4356008+01:00</Time>
     </Item>
     <Item>
-      <Source>Titanium Motors.spritefont</Source>
-      <Name>Titanium Motors</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\Titanium Motors.xnb</Output>
-      <Time>2014-01-10T01:25:15.161937+01:00</Time>
-    </Item>
-    <Item>
       <Source>backgroundImage.jpg</Source>
       <Name>backgroundImage</Name>
       <Importer>TextureImporter</Importer>
@@ -153,6 +135,159 @@
       <Options>None</Options>
       <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\EnemyRaygunLaser.xnb</Output>
       <Time>2014-01-10T20:31:37.3945148+01:00</Time>
+    </Item>
+    <Item>
+      <Source>background5.jpg</Source>
+      <Name>background5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\background5.xnb</Output>
+      <Time>2014-01-09T01:51:01.7574231+01:00</Time>
+    </Item>
+    <Item>
+      <Source>background6.jpg</Source>
+      <Name>background6</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\background6.xnb</Output>
+      <Time>2014-01-09T01:51:01.7624234+01:00</Time>
+    </Item>
+    <Item>
+      <Source>splitterRed.png</Source>
+      <Name>splitterRed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\splitterRed.xnb</Output>
+      <Time>2014-01-11T16:47:52.7464662+01:00</Time>
+    </Item>
+    <Item>
+      <Source>smoke.png</Source>
+      <Name>smoke</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\smoke.xnb</Output>
+      <Time>2014-01-11T18:17:03.3005004+01:00</Time>
+    </Item>
+    <Item>
+      <Source>asteroid1.png</Source>
+      <Name>asteroid1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\asteroid1.xnb</Output>
+      <Time>2014-01-11T20:55:52.51054+01:00</Time>
+    </Item>
+    <Item>
+      <Source>powerup.png</Source>
+      <Name>powerup</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\powerup.xnb</Output>
+      <Time>2014-01-12T01:04:16.4169947+01:00</Time>
+    </Item>
+    <Item>
+      <Source>weaponupgrade.png</Source>
+      <Name>weaponupgrade</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\weaponupgrade.xnb</Output>
+      <Time>2014-01-12T02:32:10.1356342+01:00</Time>
+    </Item>
+    <Item>
+      <Source>plasma.png</Source>
+      <Name>plasma</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\plasma.xnb</Output>
+      <Time>2014-01-12T03:49:15.7372035+01:00</Time>
+    </Item>
+    <Item>
+      <Source>alien8.png</Source>
+      <Name>alien8</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\alien8.xnb</Output>
+      <Time>2014-01-12T05:07:42.5474176+01:00</Time>
+    </Item>
+    <Item>
+      <Source>alien9.png</Source>
+      <Name>alien9</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\alien9.xnb</Output>
+      <Time>2014-01-12T05:07:42.5494177+01:00</Time>
+    </Item>
+    <Item>
+      <Source>splitterRed2.png</Source>
+      <Name>splitterRed2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\splitterRed2.xnb</Output>
+      <Time>2014-01-12T11:21:48.7552673+01:00</Time>
+    </Item>
+    <Item>
+      <Source>explosion_sound.wav</Source>
+      <Name>explosion_sound</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\explosion_sound.xnb</Output>
+      <Time>2014-01-06T13:45:24.7085805+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Titanium Motors.spritefont</Source>
+      <Name>Titanium Motors</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\Titanium Motors.xnb</Output>
+      <Time>2014-01-10T01:25:15.161937+01:00</Time>
+    </Item>
+    <Item>
+      <Source>boss.png</Source>
+      <Name>boss</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\boss.xnb</Output>
+      <Time>2014-01-12T15:25:27.1653925+01:00</Time>
+    </Item>
+    <Item>
+      <Source>laserSound.wav</Source>
+      <Name>laserSound</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\laserSound.xnb</Output>
+      <Time>2014-01-12T21:21:56.6788027+01:00</Time>
+    </Item>
+    <Item>
+      <Source>laserDowe.wav</Source>
+      <Name>laserDowe</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\laserDowe.xnb</Output>
+      <Time>2014-01-12T21:40:47.2324667+01:00</Time>
+    </Item>
+    <Item>
+      <Source>lightRain.wav</Source>
+      <Name>lightRain</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\lightRain.xnb</Output>
+      <Time>2014-01-12T22:26:29.6353231+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

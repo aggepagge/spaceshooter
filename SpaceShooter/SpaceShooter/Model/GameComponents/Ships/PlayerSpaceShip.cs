@@ -11,7 +11,7 @@ namespace SpaceShooter.Model.GameComponents.Ships
     class PlayerSpaceShip : SpaceShip
     {
         internal bool Firering { get; set; }
-        internal WeaponTypes CurrentWeapon { get; set; }
+        internal WeaponTypes CurrentWeapon { get; private set; }
         internal float FireRate { get; private set; }
         private bool CanFire { get; set; }
         private float timeUntillNextShoot = 0.0f;
@@ -99,17 +99,7 @@ namespace SpaceShooter.Model.GameComponents.Ships
         {
             if (weapons.Count > 0)
             {
-                WeaponTypes tmpWeapon = CurrentWeapon;
-
-                switch (tmpWeapon)
-                {
-                    case WeaponTypes.Raygun:
-                        return WeaponTypes.Raygun;
-                    case WeaponTypes.Missile:
-                        return WeaponTypes.Missile;
-                    default:
-                        return WeaponTypes.Raygun;
-                } 
+                return CurrentWeapon;
             }
             else
             {
@@ -143,6 +133,11 @@ namespace SpaceShooter.Model.GameComponents.Ships
             }
             else if (timeUntillNextShoot != 0.0f)
                 timeUntillNextShoot = 0.0f;
+
+            if (this.Healt < this.PlayerStartHealt / 2)
+            {
+                this.setCurrentWeapon(WeaponTypes.Raygun);
+            }
         }
 
         internal override bool HasBeenShoot(FloatRectangle shotRect)
