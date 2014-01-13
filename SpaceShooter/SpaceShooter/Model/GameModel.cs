@@ -476,7 +476,7 @@ namespace SpaceShooter.Model
                                                                                 obsticle.Size
                                                                                );
 
-                //Kollar om kometen träffar spelaren
+                //Kollar om kometen träffat spelaren
                 if (Player.HasBeenShoot(asteroidRect))
                 {
                     Player.Healt -= obsticle.Damage;
