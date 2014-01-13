@@ -8,6 +8,12 @@ using SpaceShooter.View;
 
 namespace SpaceShooter.Model.GameComponents.Parts
 {
+    /// <summary>
+    /// Game obsticle är tänkt att var en klass för olika typer av föremål på banorna. 
+    /// Men jag han tyvär bara skapa kometer, så man kna säga att det här är komet-klassen.
+    /// Kometen ritas ut med ett ett spritesheet och den roterar dessutom. Så därför
+    /// görs beräkningar för vilken ruta som ska visas samt rotationen
+    /// </summary>
     class GameObsticle
     {
         //Farten i Y-led
@@ -37,8 +43,8 @@ namespace SpaceShooter.Model.GameComponents.Parts
         private float time = 0;
         
         private float wait_time;
-        private static float minSize = 0.24f;
-        private static float maxSize = 0.4f;
+        private static float minSize = 0.2f;
+        private static float maxSize = 0.3f;
 
         internal bool RemoveMe { get; set; }
         internal float Rotation { get; private set; }
@@ -48,10 +54,10 @@ namespace SpaceShooter.Model.GameComponents.Parts
         internal int Healt { get; set; }
         internal int DeathPoint { get; private set; }
 
-        internal GameObsticle(int seed, float speedY, float size, Vector2 startPossition, int damage)
+        //Konstruktor som tar en seed, fart (i Y-led), startpossition och int för skadan den åsamkar
+        internal GameObsticle(int seed, float speedY, Vector2 startPossition, int damage)
         {
             this.SpeedY = speedY;
-            this.Size = size;
             this.possition = startPossition;
             this.startY = startPossition.Y;
             this.ImageCount = 1;
@@ -67,7 +73,7 @@ namespace SpaceShooter.Model.GameComponents.Parts
             Random rand = new Random(seed);
 
             //Storleken sätts mellan minsta storlek och största storlek med random
-            size = minSize + ((float)(rand.NextDouble()) * (minSize - maxSize));
+            Size = minSize + ((float)(rand.NextDouble()) * (minSize - maxSize));
 
             //Räknar ut tiden för varje bildruta genom att dela den totala tiden med antalet bildrutor
             imageTime = MAX_TIME / NumberOfFrames;
@@ -77,16 +83,19 @@ namespace SpaceShooter.Model.GameComponents.Parts
             updateSprite();
         }
 
+        //Returnerar possition X
         internal float getPossitionX()
         {
             return possition.X;
         }
 
+        //Returnerar possition Y
         internal float getPossitionY()
         {
             return possition.Y;
         }
 
+        //Kollar om detta objekt har kolliderat med ett annat objekt
         internal bool HasBeenShoot(FloatRectangle shotRect)
         {
             FloatRectangle shipRect = FloatRectangle.createFromCenter(possition, Size);
@@ -97,7 +106,7 @@ namespace SpaceShooter.Model.GameComponents.Parts
             return false;
         }
 
-        //Uppdaterar explotionen
+        //Uppdaterar kometen
         internal void Update(float elapsedGameTime)
         {
             time += elapsedGameTime;
@@ -118,6 +127,7 @@ namespace SpaceShooter.Model.GameComponents.Parts
 
                 possition.Y += SpeedY * elapsedGameTime;
 
+                //Om kometen har rört sig nedanför spelplanen så ska den raderas från samlingen av kometer
                 if (possition.Y > XNAController.BOARD_LOGIC_HEIGHT + Size)
                 {
                     RemoveMe = true;

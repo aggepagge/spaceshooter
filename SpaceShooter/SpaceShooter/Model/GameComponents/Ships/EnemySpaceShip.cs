@@ -8,6 +8,7 @@ using SpaceShooter.Model.GameComponents.Weapons.Weapon;
 
 namespace SpaceShooter.Model.GameComponents.Ships
 {
+    //Enum för fiendetyper (Som gör att dom blir olika stora, får olika vapen och hälsa)
     public enum EnemyTypes
     {
         Easy,
@@ -16,11 +17,15 @@ namespace SpaceShooter.Model.GameComponents.Ships
         Boss
     }
 
+    /// <summary>
+    /// Klass för fiende-skepp
+    /// //Subklass till SpaceShip
+    /// </summary>
     class EnemySpaceShip : SpaceShip
     {
         private List<Vector2> possitions;
+        //Enum för typ av fiende
         internal EnemyTypes EnemyType { get; private set; }
-
         private float updateTime = 0;
         private int numberOfPossitions = 1;
         protected float updatePossitionTime;
@@ -35,6 +40,10 @@ namespace SpaceShooter.Model.GameComponents.Ships
         private Vector2 PreviousPossition { get; set; }
         private Vector2 CurrentPossition { get; set; }
 
+        //Konstruktor som tar variabler för denna klass och super-klassen
+        //List<Vector2> possitions är X och Y-posstioner som skapats i Level-klassen och använder Bizier-kurvor för uträkning
+        //Detta gör att man kan få mer intressanta rörelser på fienderna (possitions är en referens till en av List<Vector2> 
+        //som skapats i Level-klassen)
         internal EnemySpaceShip(EnemyTypes enemyType, float height, float width, Level level, float speedX, float speedY, int healt,
                                     List<Vector2> possitions, float updatePossitionTime)
             : base(height, width, level, speedX, speedY, healt)
@@ -54,6 +63,7 @@ namespace SpaceShooter.Model.GameComponents.Ships
             this.CurrentPossition = spaceShipPossition;
         }
 
+        //Uppdaterar om possition, om det är dags att skuta samt om fienden ska raderas
         internal override void Update(float elapsedTimeSeconds)
         {
             fireTimer += elapsedTimeSeconds;
@@ -88,6 +98,7 @@ namespace SpaceShooter.Model.GameComponents.Ships
                 RemoveMe = true;
         }
 
+        //Kollar om detta objekt har kollidrat med ett annat objekt
         internal override bool HasBeenShoot(FloatRectangle shotRect)
         {
             FloatRectangle shipRect = FloatRectangle.createFromLeftTop(spaceShipPossition, SpaceShipWidth, SpaceShipHeight);
@@ -98,11 +109,17 @@ namespace SpaceShooter.Model.GameComponents.Ships
             return false;
         }
 
+        //returnerar mitt (X) och botten (Y)
         internal Vector2 getCenterBottomPossition()
         {
             return new Vector2(spaceShipPossition.X + (SpaceShipWidth / 2), spaceShipPossition.Y + (SpaceShipHeight / 2));
         }
 
+        //Metod som returnerar nuvarande possition (X och Y) samt den föregående possitionen
+        //Detta används för att explotionen som skapas i vyn efter att skeppet dött ska fortsätta i
+        //sammma riktning som skeppet färdades i. Detta görs genom att räkna ut avstånden mellan 
+        //båda X-possitionerna och båda Y-possitionerna och addera dessa till gravitationen
+        //för explotions-particklarna
         internal KeyValuePair<Vector2, Vector2> getCurrentAndPreviousPossition()
         {
             return new KeyValuePair<Vector2, Vector2>(CurrentPossition, PreviousPossition);

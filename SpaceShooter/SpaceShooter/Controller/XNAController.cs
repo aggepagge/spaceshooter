@@ -24,23 +24,22 @@ namespace SpaceShooter
         private GameModel m_gameModel;
         private GameView v_gameView;
         private Camera camera;
-
         private MenuGUI v_GUI;
-        private Rectangle backgroundRect;
-        private Texture2D background;
  
-        //Statiska variabler för logisk höjd och bredd på panelen
+        //Statiska variabler för logisk höjd och bredd på camera-vyn
         internal static float BOARD_LOGIC_WIDTH = 1.0f;
         internal static float BOARD_LOGIC_HEIGHT = 1.0f;
 
-        //TODO: ANVÄNDS FÖR BREDDEN PÅ SPELPLANEN... 
+        //Statisk variablel för logisk bredd på spelplanen
         internal static float BOARD_LOGIC_GAMEFIELDWIDTH = 1.6f;
+        //Variabel för spelarens starthälsa
         internal static int PLAYER_START_HEALT = 100;
 
         //Statiska variabler för logisk höjd och bredd på spelarens rymdskepp
         internal static float PLAYER_SPACESHIP_HEIGHT = 0.1f;
         internal static float PLAYER_SPACESHIP_WIDTH = 0.1f;
 
+        //Variabler för spelarens skepp i X och Y-led
         internal static float PLAYER_SPACESHIP_SPEEDX = 0.014f;
         internal static float PLAYER_SPACESHIP_SPEEDY = 0.01f;
 
@@ -48,6 +47,7 @@ namespace SpaceShooter
         private const int SCREEN_HEIGHT = 800;
         private const int SCREEN_WIDTH = 800;
 
+        //Variabler för om menyn ska visas eller ej
         private bool paused = false;
         internal bool ShowingMenu { get; set; }
         private bool showIngameMenu = false;
@@ -82,16 +82,13 @@ namespace SpaceShooter
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            
+            //initsierar alla model och view-objekt
             m_gameModel = new GameModel();
             camera = new Camera(graphics.GraphicsDevice.Viewport);
             v_gameView = new GameView(graphics.GraphicsDevice, m_gameModel, camera, spriteBatch, Content);
-            v_GUI = new MenuGUI(graphics.GraphicsDevice, Content, spriteBatch);
-
-            background = Content.Load<Texture2D>("backgroundImage");
-            backgroundRect = new Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+            v_GUI = new MenuGUI(graphics.GraphicsDevice, Content, spriteBatch, camera);
         }
 
         /// <summary>
@@ -110,10 +107,13 @@ namespace SpaceShooter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            //Om användaren har tryckt på ESC så returnerar gameview true
             if (v_gameView.showMenu())
             {
+                //ShowingMenu sätts till true (Genom att sätta den till sitt motsatta värde)
                 ShowingMenu = !ShowingMenu;
 
+                //Allt ljud pausas
                 if (ShowingMenu)
                 {
                     v_gameView.pauseSound();
@@ -123,10 +123,14 @@ namespace SpaceShooter
                     v_gameView.resumeSound();
             }
 
+            //Uppräkning för när det ska kollas om spelaren har dött eller banan är färdigspelas
             pullingForMenu += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            //Fördröjning för att menyn inte ska visas direkt när något av vilkoren är sanna.
+            //(Det görs även en fördröjning i GameModel)
             if (pullingForMenu > WAIT_TIME)
             {
+                //Om spelaren dött eller banan har spelats klart så ska menyn visas
                 if (m_gameModel.Player.RemoveMe || m_gameModel.LevelFinished)
                 {
                     showIngameMenu = true;
@@ -136,10 +140,12 @@ namespace SpaceShooter
                 pullingForMenu = 0.0f;
             }
 
+            //Om inga menyer visas så spelas spelet...
             if (!ShowingMenu && !showIngameMenu)
             {
                 this.IsMouseVisible = false;
 
+                //Lystnar efter om användaren trycker på någon tangent
                 if (!paused)
                 {
                     if (v_gameView.playerMovesUp())
@@ -167,6 +173,7 @@ namespace SpaceShooter
             base.Update(gameTime);
         }
 
+        //Draw används för att rita ut knappar i MenuGUI (Taget efter ett av dina exempel)
         private void DrawMenu()
         {
             int possitionX = 100;
@@ -185,9 +192,7 @@ namespace SpaceShooter
                     }
 
                     if (v_GUI.DrawMenu(Mouse.GetState(), "Quit", possitionX, possitionY += buttonSeparation))
-                    {
                         this.Exit();
-                    }
                 }
                 else if (!m_gameModel.gameIsFinished())
                 {
@@ -203,9 +208,7 @@ namespace SpaceShooter
                     }
 
                     if (v_GUI.DrawMenu(Mouse.GetState(), "Quit", possitionX, possitionY += buttonSeparation))
-                    {
                         this.Exit();
-                    }
                 }
                 else if (m_gameModel.gameIsFinished())
                 {
@@ -219,9 +222,7 @@ namespace SpaceShooter
                     }
 
                     if (v_GUI.DrawMenu(Mouse.GetState(), "Quit", possitionX, possitionY += buttonSeparation))
-                    {
                         this.Exit();
-                    }
                 }
             }
             else
@@ -233,26 +234,19 @@ namespace SpaceShooter
                 }
 
                 if (m_gameModel.GameTime > 0)
-                {
                     if (v_GUI.DrawMenu(Mouse.GetState(), "Continue", possitionX, possitionY += buttonSeparation))
-                    {
                         ShowingMenu = false;
-                    }
-                }
 
                 if (v_GUI.DrawMenu(Mouse.GetState(), "Quit", possitionX, possitionY += buttonSeparation))
-                {
                     this.Exit();
-                }
 
                 if (m_gameModel.GameTime == 0)
-                {
                     v_GUI.DrawResult(
-                                    "Use arrow keys to stear and \nspace to shoot (Once to start \nfirering, again to stop) \n\nEsc for main menu",
-                                    possitionX,
-                                    possitionY += buttonSeparation,
-                                    100);
-                }
+                                        "Use arrow keys to stear and \nspace to shoot (Once to start \nfirering, again to stop) \n\nEsc for main menu",
+                                        possitionX,
+                                        possitionY += buttonSeparation,
+                                        100
+                                    );
             }
         }
 
@@ -262,12 +256,13 @@ namespace SpaceShooter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            //Kollar om menyn ska visas, annars så ritas spelet ut
             if (ShowingMenu || showIngameMenu)
             {
                 GraphicsDevice.Clear(Color.White);
                 spriteBatch.Begin();
-                spriteBatch.Draw(background, backgroundRect, Color.White);
 
+                v_GUI.DrawBackground();
                 this.DrawMenu();
 
                 spriteBatch.End();

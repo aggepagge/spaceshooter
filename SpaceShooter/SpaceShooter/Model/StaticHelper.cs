@@ -9,6 +9,9 @@ using SpaceShooter.Model.GameComponents.Ships;
 
 namespace SpaceShooter.Model
 {
+    /// <summary>
+    /// Statisk klass som returnerar olika värden för WeaponType och EnemyTypes
+    /// </summary>
     public static class StaticHelper
     {
         public static float getFireRate(WeaponTypes weapon)
@@ -39,7 +42,7 @@ namespace SpaceShooter.Model
             switch (weapon)
             {
                 case WeaponTypes.Raygun:
-                    return 20;
+                    return 10;
                 case WeaponTypes.Missile:
                     return 100;
                 case WeaponTypes.Plasma:

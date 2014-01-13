@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 
 namespace SpaceShooter.Model.GameComponents
 {
+    /// <summary>
+    /// Klass som jag har snott ganska rakt av från ditt exempel
+    /// </summary>
     class FloatRectangle
     {
         Vector2 topLeft;

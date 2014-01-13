@@ -112,10 +112,7 @@ namespace SpaceShooter.View.Particles
             frameY = countRowX;
         }
 
-        //Ritar ut explotionen med Draw-funktionen som tar två rektanglar som argument.
-        //Den första rektangeln skapas genom kameraklass-objektet och sätts till rätt visuell
-        //storlek.
-        //Den andra rektangeln sätts till del av den första rektangeln (För att visa en del av spriten)
+        //Ritar ut röken med Draw-funktionen som tar två rektanglar som argument.
         internal void Draw(SpriteBatch spriteBatch, Camera camera, Texture2D texture)
         {
             //Yttre rektangel med startpossition (X och Y) samt logisk storlek.
@@ -143,6 +140,7 @@ namespace SpaceShooter.View.Particles
 
             Rectangle explotionRect = new Rectangle(Xrow, Yrow, spriteWidth, spriteHeight);
 
+            //Sätter färgen till 0.4 för opacitet
             spriteBatch.Draw(texture, frameRect, explotionRect, Color.White * 0.4f);
         }
     }

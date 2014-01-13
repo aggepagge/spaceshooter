@@ -8,6 +8,9 @@ using SpaceShooter.Model;
 
 namespace SpaceShooter.View.Particles
 {
+    /// <summary>
+    /// Klass som skapar Splitter-objekt och ser till att dom blir uppdaterade och ritas ut
+    /// </summary>
     class SplitterSystem
     {
         //Skapar en array av Splitter
@@ -16,11 +19,11 @@ namespace SpaceShooter.View.Particles
         private static int MAX_PARTICLES = 40;
 
         //Statiska variabler för starttid och sluttid
-        //(Anger hur länge splittret + splitterGrov ska köras)
+        //(Anger hur länge splittret ska köras)
         private static float startRunTime = 0.0f;
         private static float endRunTime = 0.001f;
 
-        //Konstruktor som initsierar arrayerna och particklarna i dessa
+        //Konstruktor som initsierar arrayen och particklarna i denna
         internal SplitterSystem(Vector2 startPossition, float scale)
         {
             particles = new List<Splitter>(MAX_PARTICLES);
@@ -31,7 +34,7 @@ namespace SpaceShooter.View.Particles
             }
         }
 
-        //Uppdaterar particklarna i arrayerna
+        //Uppdaterar particklarna i arrayen
         internal void Update(float elapsedGameTime)
         {
             foreach (Splitter splitter in particles.ToList())
@@ -43,7 +46,7 @@ namespace SpaceShooter.View.Particles
             }
         }
 
-        //Anropar Draw-funktionen på alla objekt i arrayerna
+        //Anropar Draw-funktionen på alla objekt i arrayen
         internal void Draw(SpriteBatch spriteBatch, Camera camera, Texture2D texture)
         {
             foreach (Splitter splitter in particles)

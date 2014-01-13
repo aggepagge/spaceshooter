@@ -6,12 +6,17 @@ using Microsoft.Xna.Framework;
 
 namespace SpaceShooter.Model.GameComponents.Parts
 {
+    //Enum för typer av powerup's
     public enum PowerUpType
     {
         Health,
         Wepon,
     }
 
+    /// <summary>
+    /// Klass för powerups. Det går att skapa både helat och vapen-uppgraderingar av denna klass.
+    /// Borde bli en super-klass om man ska bygga ut funktionaliteten i spelet med fler uppgraderingar.
+    /// </summary>
     class PowerUp
     {
         //Farten i Y-led
@@ -28,6 +33,7 @@ namespace SpaceShooter.Model.GameComponents.Parts
         internal float Rotation { get; private set; }
         internal PowerUpType Type { get; set; }
 
+        //Konstruktor som tar fart (Y-led), storlek (Bredd och höjd), startpossition och enum typ av powerup
         internal PowerUp(float speedY, float size, Vector2 startPossition, PowerUpType type)
         {
             this.SpeedY = speedY;
@@ -39,16 +45,19 @@ namespace SpaceShooter.Model.GameComponents.Parts
             this.Type = type;
         }
 
+        //Returnerar possition X
         internal float getPossitionX()
         {
             return possition.X;
         }
 
+        //Returnerar possition Y
         internal float getPossitionY()
         {
             return possition.Y;
         }
 
+        //Kollar om detta objekt har kolliderat med ett annat objekt
         internal bool HasBeenShoot(FloatRectangle shotRect)
         {
             FloatRectangle shipRect = FloatRectangle.createFromCenter(possition, Size);
@@ -59,7 +68,7 @@ namespace SpaceShooter.Model.GameComponents.Parts
             return false;
         }
 
-        //Uppdaterar explotionen
+        //Uppdaterar possition samt rotation (om det är dags för det)
         internal void Update(float elapsedGameTime)
         {
             time += elapsedGameTime;

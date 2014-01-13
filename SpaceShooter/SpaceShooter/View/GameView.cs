@@ -17,6 +17,9 @@ using SpaceShooter.Model.GameComponents.Parts;
 
 namespace SpaceShooter.View
 {
+    /// <summary>
+    /// Klass som hanterar utritning av bakgrund och alla spelelement
+    /// </summary>
     class GameView : IGameModelListener
     {
         private GameModel m_gameModel;
@@ -96,6 +99,7 @@ namespace SpaceShooter.View
             loadContent();
         }
 
+        //Laddar alla texturer, ljud och fonter här. Borde kanske göras i en separat klass men får bli i nästa spel
         private void loadContent()
         {
             player_spaceShipTexture = content.Load<Texture2D>("bulletship");
@@ -129,6 +133,7 @@ namespace SpaceShooter.View
             setSound();
         }
 
+        //Sätter ljud för raygun och plasma
         private void setSound()
         {
             raygun_Sound_Instance = raygun_Sound.CreateInstance();
@@ -140,6 +145,7 @@ namespace SpaceShooter.View
             plasma_Sound_Instance.Volume = 0.2f;
         }
 
+        //Pausar alla ljud
         internal void pauseSound()
         {
             foreach (MakeExplotion explotion in explotions)
@@ -155,6 +161,7 @@ namespace SpaceShooter.View
                 plasma_Sound_Instance.Pause();
         }
 
+        //Stoppar skut-ljud
         internal void stopFireSound()
         {
             if (raygun_Sound_Instance.State == SoundState.Playing)
@@ -164,6 +171,7 @@ namespace SpaceShooter.View
                 plasma_Sound_Instance.Stop();
         }
 
+        //Forsätter uppspelning av alla ljud
         internal void resumeSound()
         {
             foreach (MakeExplotion explotion in explotions)
@@ -173,6 +181,7 @@ namespace SpaceShooter.View
                 splitter.resumeSound();
         }
 
+        //Återställer värden för om spelet startas om
         public void restartGame()
         {
             this.playerPreviousX = m_gameModel.Player.getPossitionX();
@@ -182,6 +191,7 @@ namespace SpaceShooter.View
             background_TMP_TEXTURE = content.Load<Texture2D>("background2");
         }
 
+        //Sätter värden för nästa bana
         public void setNextLevel(int nextLevel)
         {
             this.playerPreviousX = m_gameModel.Player.getPossitionX();
@@ -189,6 +199,7 @@ namespace SpaceShooter.View
             splitters.Clear();
             camera.restartGame();
 
+            //Bakgrundsbild beroende på vilken bana som ska spelas
             if (nextLevel == 2)
             {
                 background_TMP_TEXTURE = content.Load<Texture2D>("background5");
@@ -199,6 +210,7 @@ namespace SpaceShooter.View
             }
         }
 
+        //Sätter vilken rad (X och Y-led) som är aktuell för spritesheeten för spelaren
         private void resetSpritesheet(int firstX = 5, int firstY = 4)
         {
             int spriteWidth = (int)(player_spaceShipTexture.Width / numFramesX);
@@ -212,6 +224,10 @@ namespace SpaceShooter.View
                                                       );
         }
 
+        //Räknar tillbaka rutan för spritesheeten mot center-rutan. Detta för att det 
+        //ska bli en mjuk återgång när man åkt åt något håll (Om man t.ex. åkt åt vänster
+        //och spritesheeten är längst ut åt det hållet, så ska inte bilden hoppa till mittrutan 
+        //direkt utan det ska bli en mjuk återgång
         private void turnSpritesheet()
         {
             float playerDirection = m_gameModel.Player.getPossitionX() - playerPreviousX;
@@ -231,23 +247,10 @@ namespace SpaceShooter.View
         //Uträkning av vilken sprite-bild i spitesheeten som ska visas.
         //Uträkningen är lite udda, men detta beror på att det bara är vissa 
         //sprite-rutor som används (Rad 3y, 1x till 5y, 5x)
+        //Dessutom så är spriten omvänd, så när spelaren rör sig till höger
+        //ska bilderna för skeppet gå åt vänster och tvårtom.
         private void setFrame()
         {
-            //För visning av bilderna åt ett håll
-            //if (imageCount > 6)
-            //    frameY = 5;
-            //else if (imageCount < 2)
-            //    frameY = 3;
-            //else
-            //    frameY = 4;
-
-            //if (frameY == 4)
-            //    frameX = imageCount - 1;
-            //else if (frameY == 5)
-            //    frameX = imageCount - 6;
-            //else
-            //    frameX = 5;
-
             //För visning av bilderna åt motsatt håll
             if (imageCount < 6)
                 frameY = 5;
@@ -268,8 +271,10 @@ namespace SpaceShooter.View
             timeCountUpdate = 0.0f;
         }
 
+        //Uppdaterar vyn (För t.ex. explotioner och splitter som inte skapas i modellen)
         internal void UpdateView(float elapsedGameTime)
         {
+            //Kollar vilket ljud som ska spelas beroende på spelarens vapen
             if (m_gameModel.Player.Firering)
             {
                 if (m_gameModel.Player.CurrentWeapon == WeaponTypes.Raygun)
@@ -293,29 +298,36 @@ namespace SpaceShooter.View
                         plasma_Sound_Instance.Resume();
                 }
             }
+            //Om spelaren inte skuter
             else
             {
                 raygun_Sound_Instance.Stop();
-                raygun_Sound_Instance.Stop();
+                plasma_Sound_Instance.Stop();
             }
 
             smokeSystem.Update(elapsedGameTime);
 
+            //Uppdaterar alla explotionerna
             foreach (MakeExplotion explotion in explotions)
                 explotion.UpdateExplotion(elapsedGameTime);
 
+            //Uppdaterar allt splitter
             foreach (MakeSplitter splitter in splitters)
                 splitter.UpdateSplitter(elapsedGameTime);
 
             timeCountUpdate += elapsedGameTime;
 
+            //Kollar om det är dags avv gå till nästa bildruta i spritesheeten 
+            //(Detta görs bara om spelaren svänger åt samma håll längre än IMAGE_COUNT_UPDATE)
             if (timeCountUpdate > IMAGE_COUNT_UPDATE)
             {
                 turnSpritesheet();
             }
 
+            //Här räknas aktuell bildruta för spelaren ner eller upp och setFrame() anropas för återgång mot centrum-bildrutan
             if (timeCountUpdate > IMAGE_COUNT_UPDATE / 60) //Delat med 60 så uppdateringen av possitionen hinns med
             {
+                //Om tidigare possition inte är densamma som nuvarande så rör spelaren på skeppet
                 if (playerPreviousX != m_gameModel.Player.getPossitionX())
                 {
                     playerPreviousX = m_gameModel.Player.getPossitionX();
@@ -337,6 +349,7 @@ namespace SpaceShooter.View
                 }
             }
 
+            //Rectangeln för spelaren ppdateras
             spaceShipDestinationRectangle = camera.getPlayerVisualRectangle(
                                                                                 m_gameModel.Player.getPossitionX() + (m_gameModel.Player.SpaceShipWidth / 4),
                                                                                 m_gameModel.Player.getPossitionY() + (m_gameModel.Player.SpaceShipHeight / 4),
@@ -346,7 +359,10 @@ namespace SpaceShooter.View
 
             background_TMP_Rect = camera.getBoardVisualRectangle(m_gameModel.Level.BoardTotalWidth);
 
-            //Uträkning av hur många procent av hälsostapeln som ska räknas bort
+            //Uträkning av hur många procent av hälsostapeln som ska räknas bort.
+            //200 är för hur många pixlar bred hälsostapeln är när den är full
+            //och om spelaren är skada så ska stapeln minskas med hur mycket skadad
+            //spelaren är jämfört med när spelaren har full hälsa (i %)
             int healtLost = m_gameModel.Player.PlayerStartHealt - m_gameModel.Player.Healt;
             float heltPercent = (float)healtLost / (float)m_gameModel.Player.PlayerStartHealt;
             int result = 200;
@@ -361,31 +377,37 @@ namespace SpaceShooter.View
             currentKeyBoardState = Keyboard.GetState();
         }
 
+        //Kollar tangentbords-händelser för escape
         internal bool showMenu()
         {
             return Keyboard.GetState().IsKeyDown(Keys.Escape);
         }
 
+        //Kollar tangentbords-händelser för up
         internal bool playerMovesUp()
         {
             return Keyboard.GetState().IsKeyDown(Keys.Up);
         }
 
+        //Kollar tangentbords-händelser för down
         internal bool playerMovesDown()
         {
             return Keyboard.GetState().IsKeyDown(Keys.Down);
         }
 
+        //Kollar tangentbords-händelser för left
         internal bool playerMovesLeft()
         {
             return Keyboard.GetState().IsKeyDown(Keys.Left);
         }
 
+        //Kollar tangentbords-händelser för right
         internal bool playerMovesRight()
         {
             return Keyboard.GetState().IsKeyDown(Keys.Right);
         }
 
+        //Kollar tangentbords-händelser för space
         internal bool playerShoots()
         {
             if (currentKeyBoardState.IsKeyDown(Keys.Space) && !previousKeyBoardState.IsKeyDown(Keys.Space))
@@ -394,32 +416,38 @@ namespace SpaceShooter.View
             return false;
         }
 
+        //Skapar splitter på angiven possition
         public void wounded(Vector2 possition)
         {
             splitters.Add(new MakeSplitter(possition, camera.GetScale(), soundExplotion.CreateInstance(), textureSplitter));
         }
 
+        //Skapar splitter på angiven possition (Används inte)
         public void wounded(KeyValuePair<Vector2, Vector2> currentAndPreviousPossition)
         {
             splitters.Add(new MakeSplitter(currentAndPreviousPossition.Key, camera.GetScale(), soundExplotion.CreateInstance(), textureSplitter));
         }
 
+        //Skapar explotion på angiven possition, samt adderar gravitation för explotionen i den träffade fiendens riktning
         public void killed(KeyValuePair<Vector2, Vector2> currentAndPreviousPossition)
         {
             explotions.Add(new MakeExplotion(currentAndPreviousPossition, camera.GetScale(), soundExplotion.CreateInstance(), textureExplotion));
         }
 
+        //Skapar explotion på angiven possition
         public void killed(Vector2 possition)
         {
             explotions.Add(new MakeExplotion(possition, camera.GetScale(), soundExplotion.CreateInstance(), textureExplotion));
         }
 
+        //Skapar rektanglar för objekt som inte uppdateras
         private void setStatictextures()
         {
             scoreRect = new Rectangle(20, 10, 200, 30);
             healtCountRect = new Rectangle(580, 10, 200, 30);
         }
 
+        //Ritar ut alla element
         internal void Draw(float elapsedGameTime)
         {
             graphDevice.Clear(Color.Black);
@@ -429,6 +457,7 @@ namespace SpaceShooter.View
 
             smokeSystem.Draw(spriteBatch, camera, smokeBackground_Texture);
 
+            //Om det ska finnas en boss och den inte är null eller har dödats så ska den ritas ut.
             if (m_gameModel.levelContent.CreateBoss && m_gameModel.TheBoss != null && !m_gameModel.TheBoss.RemoveMe)
             {
                 Rectangle frameRect = camera.getVisualRectangle(
@@ -438,6 +467,7 @@ namespace SpaceShooter.View
                                                                     m_gameModel.TheBoss.SpaceShipHeight
                                                                 );
 
+                //Sätter aktuell bildruta för bossen
                 int Xrow = 0;
                 int spriteWidth = (int)(enemyBoss_Texture.Width / m_gameModel.TheBoss.NumberOfFramesX);
 
@@ -463,6 +493,7 @@ namespace SpaceShooter.View
                                 );
             }
 
+            //Loopar alla skott och kollar vilken vapentyp (skot-typ egentligen) som ska ritas ut
             foreach (Weapon shot in m_gameModel.Shoots)
             {
                 Rectangle shotRectangle = camera.getVisualRectangle(
@@ -486,6 +517,7 @@ namespace SpaceShooter.View
                     spriteBatch.Draw(enemyRayGun_Texture, shotRectangle, Color.White);
             }
 
+            //Loopar alla fiendeskepp och ritar ut dom
             foreach (EnemySpaceShip enemy in m_gameModel.EnemyShips)
             {
                 Rectangle enemyRectangle = camera.getVisualRectangle(
@@ -495,6 +527,7 @@ namespace SpaceShooter.View
                                                                             enemy.SpaceShipWidth
                                                                          );
 
+                //Väljer textur beroende på fiendetyp
                 if (enemy.EnemyType == EnemyTypes.Easy)
                     spriteBatch.Draw(enemy_Easy_Texture, enemyRectangle, Color.White);
                 else if (enemy.EnemyType == EnemyTypes.Middle)
@@ -503,6 +536,7 @@ namespace SpaceShooter.View
                     spriteBatch.Draw(enemy_Hard_Texture, enemyRectangle, Color.White);
             }
 
+            //Om spelaren inte har dödat ska spelarskeppet ritas ut
             if (!m_gameModel.Player.RemoveMe)
             {
                 spriteBatch.Draw(
@@ -518,11 +552,13 @@ namespace SpaceShooter.View
                                 );
             }
 
+            //Loopar alla kometer och ritar ut dom
             foreach (GameObsticle obsticle in m_gameModel.Obsticles)
             {
                 //Yttre rektangel med startpossition (X och Y) samt logisk storlek.
                 Rectangle frameRect = camera.getVisualRectangle(obsticle.getPossitionX(), obsticle.getPossitionY(), obsticle.Size, obsticle.Size);
 
+                //Beräknar vilken spritesheet-ruta som ska visas
                 int Xrow = 0;
                 int Yrow = 0;
 
@@ -559,12 +595,15 @@ namespace SpaceShooter.View
                                 );
             }
 
+            //Loopar och ritar ut alla explotioner
             foreach (MakeExplotion explotion in explotions)
                 explotion.DrawExplotion(spriteBatch, camera);
 
+            //Loopar och ritar ut allt splitter
             foreach (MakeSplitter splitter in splitters)
                 splitter.DrawSplitter(spriteBatch, camera);
 
+            //Loopar och ritar ut allt powerup's
             foreach (PowerUp powerup in m_gameModel.Power)
             {
                 Rectangle frameRect = camera.getVisualRectangle(powerup.getPossitionX(), powerup.getPossitionY(), powerup.Size, powerup.Size);
@@ -589,12 +628,15 @@ namespace SpaceShooter.View
                                 );
             }
 
+            //Ritar ut poängbakgrund
             spriteBatch.Draw(scoreBackground, scoreRect, Color.White);
 
+            //Uppdaterar texten för spelarens poäng
             string scoreText = "Score: " + m_gameModel.Player.PlayerScoore;
             Vector2 possitionScoreText = new Vector2(44, 12);
             spriteBatch.DrawString(theFont, scoreText, possitionScoreText, Color.White);
-            
+
+            //Ritar ut hälsostapeln och dess bakgrund
             spriteBatch.Draw(healtCountForeground, healtCountRect, Color.White);
             spriteBatch.Draw(healtCount, healtCountRectCoverRect, Color.White);
 

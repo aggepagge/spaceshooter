@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework.Content;
 
 namespace SpaceShooter.View.Particles
 {
+    /// <summary>
+    /// Klass som hanterar animering av ett explotions-objekt
+    /// </summary>
     class Explotion
     {
         //Vector för possition av explotionen
@@ -48,6 +51,7 @@ namespace SpaceShooter.View.Particles
 
         internal bool DeleateMe { get; private set; }
 
+        //Konstruktor som tar en seed, possition och explotionens skala
         internal Explotion(int seed, Vector2 startPossition, float scale)
         {
             Random rand = new Random(seed);
@@ -83,6 +87,8 @@ namespace SpaceShooter.View.Particles
             DeleateMe = false;
         }
 
+        //Alternativ konstruktor som tar en seed, possition och explotionens skala men också graitation i X och Y-led
+        //för att påverka gravitationen för explotionen
         internal Explotion(int seed, Vector2 startPossition, float scale, float gravityX, float gravityY)
         {
             Random rand = new Random(seed);

@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SpaceShooter.View.Particles
 {
+    /// <summary>
+    /// Klass för en partickel
+    /// </summary>
     class Splitter
     {
         private Vector2 systemStartPossition;
@@ -52,6 +55,7 @@ namespace SpaceShooter.View.Particles
             DeleateMe = false;
         }
 
+        //Uppdaterar possitionen
         internal void Update(float elapseTimeSeconds)
         {
             delayTimeSeconds -= elapseTimeSeconds;
@@ -69,6 +73,7 @@ namespace SpaceShooter.View.Particles
             }
         }
 
+        //Ritar ut splittret
         internal void Draw(SpriteBatch spriteBatch, Camera camera, Texture2D texture)
         {
             //Kollar om animeringen ska starta
@@ -89,6 +94,7 @@ namespace SpaceShooter.View.Particles
                 float opacity = endValue * t + (1.0f - t) * startValue;
                 Color myColor = new Color(opacity, opacity, opacity, opacity);
 
+                //Om objektet är helt genomskinligt så ska den raderas från samlingen
                 if (opacity == 0)
                     DeleateMe = true;
 

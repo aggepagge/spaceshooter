@@ -8,6 +8,10 @@ using SpaceShooter.View;
 
 namespace SpaceShooter.View.Particles
 {
+    /// <summary>
+    /// Klass som skapar Explotion-objekt och ser till att dom blir uppdaterade och ritas ut
+    /// Skapar flera explotionsobjekt vilket skapar en mer levande explotion
+    /// </summary>
     class ExplotionSystem
     {
         //Array för Explotion-objekt

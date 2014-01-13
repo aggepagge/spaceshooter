@@ -29,4 +29,3 @@ Content\Titanium Motors.xnb
 Content\boss.xnb
 Content\laserSound.xnb
 Content\laserDowe.xnb
-Content\lightRain.xnb

@@ -280,15 +280,6 @@
       <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\laserDowe.xnb</Output>
       <Time>2014-01-12T21:40:47.2324667+01:00</Time>
     </Item>
-    <Item>
-      <Source>lightRain.wav</Source>
-      <Name>lightRain</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\Content\lightRain.xnb</Output>
-      <Time>2014-01-12T22:26:29.6353231+01:00</Time>
-    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
