@@ -38,3 +38,4 @@ C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\In
 C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\bin\x86\Debug\SpaceShooter.application
 C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\obj\x86\Debug\SpaceShooter.exe.manifest
 C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\obj\x86\Debug\SpaceShooter.application
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Projekt\SpaceShooter\SpaceShooter\SpaceShooter\obj\x86\Debug\SpaceShooter.csprojResolveAssemblyReference.cache
